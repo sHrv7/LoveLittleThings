@@ -1,0 +1,100 @@
+.flex-item {
+    width: 200px;
+    min-width: 180px;
+    max-width: 220px;
+    flex: 1 1 200px;
+    margin-bottom: 0;
+    transition: transform 0.3s cubic-bezier(.4, 2, .6, 1), box-shadow 0.3s;
+    will-change: transform;
+    display: block;
+}
+
+.item-link:hover,
+.item-link:focus {
+    transform: scale(1.06);
+    z-index: 2;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.item-img {
+    transition: transform 0.3s cubic-bezier(.4, 2, .6, 1);
+    will-change: transform;
+}
+
+.item-link:hover .item-img,
+.item-link:focus .item-img {
+    transform: scale(1.08);
+}
+
+.item-caption {
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+}
+
+.vasi-dojmovi-flex {
+    width: 100%;
+}
+.vasi-dojmovi-item {
+    width: 100%;
+    max-width: 420px;
+    min-width: 260px;
+    flex: 1 1 340px;
+    aspect-ratio: 4/5;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+    background: var(--llt-bg-light);
+    border-radius: 1.2em;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    margin-bottom: 0;
+}
+
+.vasi-dojmovi-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    transition: transform 0.3s cubic-bezier(.4,2,.6,1);
+}
+
+.vasi-dojmovi-item:hover .vasi-dojmovi-img,
+.vasi-dojmovi-item:focus .vasi-dojmovi-img {
+    transform: scale(1.04);
+}
+
+.speech-bubble {
+    position: relative;
+    z-index: 2;
+    background: rgba(255,255,255,0.65);
+    border-radius: 0.7em;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    font-size: 1.04rem;
+    color: var(--llt-accent-dark);
+    padding: 1.1em 1.3em 0.9em 1.3em;
+    margin: 1.2em;
+    max-width: 90%;
+    min-width: 120px;
+    text-align: left;
+    font-family: inherit;
+    font-weight: 400;
+    border: 1px solid #ececec;
+    
+    transition: 
+        background 0.3s cubic-bezier(.4,0,.2,1),
+        color 0.3s cubic-bezier(.4,0,.2,1),
+        border-color 0.3s cubic-bezier(.4,0,.2,1),
+        box-shadow 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+.vasi-dojmovi-item:hover .speech-bubble,
+.vasi-dojmovi-item:focus .speech-bubble {
+    
+    box-shadow: none;
+    background: transparent;
+    color: transparent;
+    border-color: transparent;
+}
