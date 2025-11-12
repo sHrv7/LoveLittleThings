@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Love Little Things</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="styles.css" rel="stylesheet">
+    <link href="Index.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Favicon for browser tab -->
+    <link rel="icon" type="image/png" href="Images/Logo.jpg">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        main {
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar section -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <!-- Brand with logo -->
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="Index.html">
+                <img src="Images/Logo.jpg" style="height: 38px; width: auto; border-radius: 50px;">
+                Love Little Things
+            </a>
+            <!-- Offcanvas Toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" aria-label="Meni">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Offcanvas Menu -->
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Love Little Things</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="Index.html">Početna</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Katalog.html">Katalog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Info.html">Info</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Pravila kod naručivanja</h1>
+        <p>Ljubazno Vas molim da kod naručivanja budete što točniji i u napomene stavite dodatne detalje ili ideje.</p>
+        <p>Molim Vas da kada Vam pošaljem sliku skice, pažljivo je pregledate i provjerite je li sve onako kako ste
+            željeli. Obratite posebnu pozornost i na odabrani font. Nakon što izrežem foliju, dodatne reklamacije ne
+            mogu se uvažiti.</p>
+        <p>Uplata se vrši prije izrade, nakon što odobrite viđenu skicu.</p>
+        <p>Vrijeme izrade i isporuka su po dogovoru.</p>
+    </main>
+
+
+    <!-- Footer Section -->
+    <footer class="llt-footer mt-5 py-4">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <div class="d-flex gap-3 justify-content-center">
+                <a href="https://www.facebook.com/people/Love-Little-Thingsby-Kristina/61571485262068/#" target="_blank"
+                    rel="noopener" class="llt-footer-link" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook fa-xl llt-footer-icon"></i>
+                </a>
+                <a href="https://www.instagram.com/lovelittlethings_kristina" target="_blank" rel="noopener"
+                    class="llt-footer-link" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram fa-xl llt-footer-icon"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Love Little Things</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="styles.css" rel="stylesheet">
+    <link href="Index.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Favicon for browser tab -->
+    <link rel="icon" type="image/png" href="Images/Logo.jpg">
+
+    <style>
+        .products {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .product-card {
+            width: 30%;
+            cursor: pointer;
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+
+        .product-card:hover {
+            border-color: #888;
+            transform: scale(1.05);
+        }
+
+        .product-card img {
+            width: 100%;
+            /* max-height: 500px; */
+            height: 25em;
+            display: block;
+            object-fit: scale-down;
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 600px;
+            margin-top: 50px;
+        }
+
+        /* Images inside modal customization */
+        .modal-content img {
+            width: 250px;
+            /* or whatever size fits */
+            height: 250px;
+            object-fit: contain;
+            /* keep aspect ratio and crop if needed */
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.2s;
+        }
+
+        .modal-content textarea {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar section -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <!-- Brand with logo -->
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="Index.html">
+                <img src="Images/Logo.jpg" style="height: 38px; width: auto; border-radius: 50px;">
+                Love Little Things
+            </a>
+            <!-- Offcanvas Toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" aria-label="Meni">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Offcanvas Menu -->
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Love Little Things</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="Index.html">Početna</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Katalog.html">Katalog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Info.html">Info</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <form id="orderForm">
+        <h3>Request Item</h3>
+
+        <label>Ime</label>
+        <input type="text" name="user_name" required><br>
+
+        <label>Broj</label>
+        <input type="text" name="user_number" required><br>
+
+        <label>Email</label>
+        <input type="email" name="user_email" required><br>
+
+        <label>Narudžba</label>
+        <textarea name="order" id="orderTextarea" readonly placeholder="Selected items appear here"></textarea><br>
+
+        <label>Kako da Vas kontaktiramo</label>
+        <select name="communication_channel">
+            <option value="Email">Email</option>
+            <option value="Whatsapp">Whatsapp</option>
+        </select><br>
+
+        <label>Dodatne napomene</label>
+        <textarea name="message" placeholder="Dodatne napomene u vezi prilagodbe"></textarea><br>
+
+        <button type="submit">Pošalji</button>
+    </form>
+
+    <h2>Krsni set</h2>
+    <div class="products" id="krsniSetContainer">
+        <div class="product-card" data-name="Krsni Set - Biblija, Krunica, Svijeća" data-category="krsni">
+            <img src="Katalog/Setovi/Krsni - Biblija, Krunica, Svijeca.jpg">
+            <p>Krsni Set - Biblija, Krunica, Svijeća</p>
+            <p>20€</p>
+        </div>
+        <div class="product-card" data-name="Krsni Set - Biblija, Svijeća" data-category="krsni">
+            <img src="Katalog/Setovi/Krsni - Biblija, Krunica, Svijeca.jpg">
+            <p>Krsni Set - Biblija, Svijeća</p>
+            <p>20€</p>
+        </div>
+        <div class="product-card" data-name="Krsni Set - Krunica, Svijeća" data-category="krsni">
+            <img src="Katalog/Setovi/Krsni - Krunica, Svijeca.jpg">
+            <p>Krsni Set - Krunica, Svijeća</p>
+            <p>20€</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="krsniModal">
+        <div class="modal-content">
+            <h4 id="krsniTitle"></h4>
+            <form class="customForm">
+
+                <!-- Step 1 -->
+                <div class="step step-1">
+                    <label>Ime osobe koja se krsti</label>
+                    <input name="Ime" type="text" required>
+
+                    <h5>Svijeća</h5>
+                    <label>Boja</label>
+                    <select name="Boja" required>
+                        <option value="">Odaberi</option>
+                        <option value="Bijela">Bijela</option>
+                        <option value="Nude">Nude</option>
+                        <option value="Žuto/zlatna">Žuto/zlatna</option>
+                        <option value="Svijetlo smeđa">Svijetlo smeđa</option>
+                        <option value="Lila">Lila</option>
+                        <option value="Prljavo roza">Prljavo roza</option>
+                        <option value="Svijetlo plava">Svijetlo plava</option>
+                        <option value="Srednje plava">Srednje plava</option>
+                        <option value="Avokado">Avokado</option>
+                        <option value="Kraljevsko zelena">Kraljevsko zelena</option>
+                        <option value="Svijetlo zelena">Svijetlo zelena</option>
+                    </select>
+
+                    <label>Krila na svijeći</label>
+                    <select name="Krila na svijeci">
+                        <option value="ne">ne</option>
+                        <option value="da">da</option>
+                    </select>
+
+                    <img src="Katalog/Setovi/Vez1.jpg">
+                    <img src="Katalog/Setovi/Vez2.jpg">
+
+                <button type="button" class="modalClose">Odustani</button>
+                    <button type="button" class="nextBtn1">Sljedeće</button>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step step-2" style="display: none;">
+                    <h5>Unutanji dio kutije</h5>
+                    <label>Poruka sredina</label>
+                    <textarea name="poruka_sredina" placeholder="Vasa proizvoljna poruka/vers biblije"></textarea>
+
+                    <label>Font sredina</label>
+                    <select name="font_sredina" required>
+                        <option value="">Odaberi</option>
+                        <option value="Arial" style="font-family: Arial;">Arial</option>
+                        <option value="Verdana" style="font-family: Verdana;">Verdana</option>
+                        <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman</option>
+                        <option value="Georgia" style="font-family: Georgia;">Georgia</option>
+                        <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
+                        <option value="Tahoma" style="font-family: Tahoma;">Tahoma</option>
+                        <option value="Trebuchet MS" style="font-family: 'Trebuchet MS';">Trebuchet MS</option>
+                        <option value="Impact" style="font-family: Impact;">Impact</option>
+                        <option value="Comic Sans MS" style="font-family: 'Comic Sans MS';">Comic Sans MS</option>
+                    </select>
+
+                    <label>Poruka dolje</label>
+                    <textarea name="poruka_dolje" placeholder="Vasa proizvoljna poruka/od koga je"></textarea>
+
+                    <label>Font dolje</label>
+                    <select name="font_dolje" required>
+                        <option value="">Odaberi</option>
+                        <option value="Arial" style="font-family: Arial;">Arial</option>
+                        <option value="Verdana" style="font-family: Verdana;">Verdana</option>
+                        <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman</option>
+                        <option value="Georgia" style="font-family: Georgia;">Georgia</option>
+                        <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
+                        <option value="Tahoma" style="font-family: Tahoma;">Tahoma</option>
+                        <option value="Trebuchet MS" style="font-family: 'Trebuchet MS';">Trebuchet MS</option>
+                        <option value="Impact" style="font-family: Impact;">Impact</option>
+                        <option value="Comic Sans MS" style="font-family: 'Comic Sans MS';">Comic Sans MS</option>
+                    </select>
+
+
+                    <!-- Majica & Maramica -->
+                    <h5>Majica</h5>
+                    <label>Poruka na majici</label>
+                    <textarea name="poruka_majica" placeholder="Što želite da piše na majici"></textarea>
+                    <label>Font</label>
+                    <select name="font_majica" required>
+                        <option value="">Odaberi</option>
+                        <option value="Arial" style="font-family: Arial;">Arial</option>
+                        <option value="Verdana" style="font-family: Verdana;">Verdana</option>
+                        <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman</option>
+                        <option value="Georgia" style="font-family: Georgia;">Georgia</option>
+                        <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
+                        <option value="Tahoma" style="font-family: Tahoma;">Tahoma</option>
+                        <option value="Trebuchet MS" style="font-family: 'Trebuchet MS';">Trebuchet MS</option>
+                        <option value="Impact" style="font-family: Impact;">Impact</option>
+                        <option value="Comic Sans MS" style="font-family: 'Comic Sans MS';">Comic Sans MS</option>
+                    </select>
+
+                    <h5>Maramica</h5>
+                    <select name="Maramica">
+                        <option value="Ime">Ime</option>
+                        <option value="Ime + križić">Ime + križić</option>
+                        <option value="Ime + krila">Ime + krila</option>
+                    </select>
+                    <br><br>
+
+                    <button type="button" class="prevBtn1">Nazad</button>
+                    <button type="button" class="nextBtn2">Sljedeće</button>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step step-3" style="display: none;">
+                    <h5>Krunica</h5>
+
+                    <label>Dodatak krunica</label>
+                    <select name="Krunica">
+                        <option value="Ne">Ne</option>
+                        <option value="Da">Da</option>
+                    </select>
+
+                    <label>Boja perlica</label>
+                    <select name="Boja_perlica_krunica" required>
+                        <option value="PerliceBoja1">Boja 1</option>
+                    </select>
+
+                    <img src="Katalog/Perlice1.jpg">
+                    <img src="Katalog/Perlice2.jpg">
+
+
+                    <h5>Napomena</h5>
+                    <textarea name="notes" placeholder="Dodatna napomena vezana za ovaj proizvod"></textarea>
+
+                    <button type="button" class="prevBtn2">Nazad</button>
+                    <button type="submit">Dodaj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <h2>Narukvice</h2>
+    <div class="products" id="narukviceContainer">
+        <div class="product-card" data-name="Pearl Bracelet" data-category="narukvice">
+            <img src="Images/Narukvice.jpg" alt="Pearl Bracelet">
+            <p>Pearl Bracelet</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="narukviceModal">
+        <div class="modal-content">
+            <h4 id="narukviceTitle"></h4>
+            <form class="customForm">
+                <label>Boja</label>
+                <select name="boja" required>
+                    <option value="">Odaberi</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Silver">Silver</option>
+                </select><br>
+
+                <img src="Images/Prilagodba.jpg">
+                <img src="Images/Prilagodba.jpg">
+
+                <label>Napomena</label>
+                <textarea name="notes" placeholder="Doatna napomena vezana za ovaj proizvod"></textarea><br>
+
+                <button type="submit">Dodaj</button>
+                <button type="button" class="modalClose">Odustani</button>
+            </form>
+        </div>
+    </div>
+
+    <h2>Nausnice</h2>
+    <div class="products" id="nausniceContainer">
+        <div class="product-card" data-name="Pearl Earrings" data-category="nausnice">
+            <img src="Images/Nausnice.jpg" alt="Pearl Earrings">
+            <p>Pearl Earrings</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="nausniceModal">
+        <div class="modal-content">
+            <h4 id="nausniceTitle"></h4>
+            <form class="customForm">
+                <label>Boja</label>
+                <select name="boja" required>
+                    <option value="">Odaberi</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Silver">Silver</option>
+                </select><br>
+
+                <img src="Images/Prilagodba.jpg">
+                <img src="Images/Prilagodba.jpg">
+
+                <label>Napomena</label>
+                <textarea name="notes" placeholder="Doatna napomena vezana za ovaj proizvod"></textarea><br>
+
+                <button type="submit">Dodaj</button>
+                <button type="button" class="modalClose">Odustani</button>
+            </form>
+        </div>
+    </div>
+
+    <h2>Ogrlice</h2>
+    <div class="products" id="ogrliceContainer">
+        <div class="product-card" data-name="Gold Necklace" data-category="ogrlice">
+            <img src="Images/Ogrlice.jpg" alt="Gold Necklace">
+            <p>Gold Necklace</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="ogrliceModal">
+        <div class="modal-content">
+            <h4 id="ogrliceTitle"></h4>
+            <form class="customForm">
+                <label>Boja</label>
+                <select name="boja" required>
+                    <option value="">Odaberi</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Silver">Silver</option>
+                </select><br>
+
+                <img src="Images/Prilagodba.jpg">
+                <img src="Images/Prilagodba.jpg">
+
+                <label>Napomena</label>
+                <textarea name="notes" placeholder="Doatna napomena vezana za ovaj proizvod"></textarea><br>
+
+                <button type="submit">Dodaj</button>
+                <button type="button" class="modalClose">Odustani</button>
+            </form>
+        </div>
+    </div>
+
+    <h2>Privjesci</h2>
+    <div class="products" id="privjesciContainer">
+        <div class="product-card" data-name="Custom Pendant" data-category="privjesci">
+            <img src="Images/Privjesci.jpg" alt="Custom Pendant">
+            <p>Custom Pendant</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="privjesciModal">
+        <div class="modal-content">
+            <h4 id="privjesciTitle"></h4>
+            <form class="customForm">
+                <label>Boja</label>
+                <select name="Boja" required>
+                    <option value="">Odaberi</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Silver">Silver</option>
+                </select><br>
+
+                <img src="Images/Prilagodba.jpg">
+                <img src="Images/Prilagodba.jpg">
+
+                <label>Napomena</label>
+                <textarea name="notes" placeholder="Doatna napomena vezana za ovaj proizvod"></textarea><br>
+
+                <button type="submit">Dodaj</button>
+                <button type="button" class="modalClose">Odustani</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Footer Section -->
+    <footer class="llt-footer mt-5 py-4">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <div class="d-flex gap-3 justify-content-center">
+                <a href="https://www.facebook.com/people/Love-Little-Thingsby-Kristina/61571485262068/#" target="_blank"
+                    rel="noopener" class="llt-footer-link" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook fa-xl llt-footer-icon"></i>
+                </a>
+                <a href="https://www.instagram.com/lovelittlethings_kristina" target="_blank" rel="noopener"
+                    class="llt-footer-link" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram fa-xl llt-footer-icon"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+
+    <script>
+        const nextBtn1 = document.querySelector(".nextBtn1");
+        const prevBtn1 = document.querySelector(".prevBtn1");
+        const step1 = document.querySelector(".step-1");
+        const step2 = document.querySelector(".step-2");
+        const step3 = document.querySelector(".step-3");
+        const nextBtn2 = document.querySelector(".nextBtn2");
+        const prevBtn2 = document.querySelector(".prevBtn2");
+
+        nextBtn1.addEventListener("click", () => {
+            // Select all form controls in the current step
+            const fields = step1.querySelectorAll("input, select, textarea");
+
+            // Check if all fields are valid
+            let allValid = true;
+            fields.forEach(field => {
+                if (!field.checkValidity()) {
+                    field.reportValidity(); // This triggers browser validation UI
+                    allValid = false;
+                    return; // Stop at the first invalid field
+                }
+            });
+
+            if (allValid) {
+                step1.style.display = "none";
+                step2.style.display = "block";
+            }
+        });
+
+        prevBtn1.addEventListener("click", () => {
+            step2.style.display = "none";
+            step1.style.display = "block";
+        });
+
+        nextBtn2.addEventListener("click", () => {
+            // Select all form controls in the current step
+            const fields = step2.querySelectorAll("input, select, textarea");
+
+            // Check if all fields are valid
+            let allValid = true;
+            fields.forEach(field => {
+                if (!field.checkValidity()) {
+                    field.reportValidity(); // This triggers browser validation UI
+                    allValid = false;
+                    return; // Stop at the first invalid field
+                }
+            });
+
+            if (allValid) {
+                step2.style.display = "none";
+                step3.style.display = "block";
+            }
+        });
+        prevBtn2.addEventListener("click", () => {
+            step3.style.display = "none";
+            step2.style.display = "block";
+        });
+
+        const productCards = document.querySelectorAll(".product-card");
+        const orderTextarea = document.getElementById("orderTextarea");
+
+        let currentProduct = "";
+        let currentModal = null;
+
+        productCards.forEach(card => {
+            card.addEventListener("click", () => {
+                currentProduct = card.dataset.name;
+                const category = card.dataset.category;
+
+                // Decide which modal to open
+                currentModal = document.getElementById(category + "Modal");
+                const title = currentModal.querySelector("h4");
+                title.textContent = "Prilagodi: " + currentProduct;
+
+                // Reset the form
+                currentModal.querySelector("form").reset();
+                currentModal.style.display = "flex";
+            });
+        });
+
+        // Close all modals
+        document.querySelectorAll(".modalClose").forEach(btn => {
+            btn.addEventListener("click", () => {
+                btn.closest(".modal").style.display = "none";
+            });
+        });
+
+        // Handle all customization forms
+        document.querySelectorAll(".customForm").forEach(form => {
+            form.addEventListener("submit", e => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                let line = `${currentProduct}`;
+
+                formData.forEach((value, key) => {
+                    if (value) line += `, ${key}: ${value}`;
+                });
+
+                const existing = orderTextarea.value.split("\n").filter(Boolean);
+                existing.push(line);
+                orderTextarea.value = existing.join("\n");
+
+                // Close modal
+                form.closest(".modal").style.display = "none";
+            });
+        });
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        (function () {
+            emailjs.init("YOUR_PUBLIC_KEY"); // Replace with EmailJS public key
+        })();
+
+        document.getElementById("orderForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
+                .then(() => alert("Vaš zahtjev je zaprimljen. Kontaktirati ćemo Vas uskoro."))
+                .catch(err => alert("Greška: " + JSON.stringify(err)));
+        });
+    </script>
+</body>
+
+</html>
