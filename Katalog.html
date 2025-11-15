@@ -160,6 +160,20 @@
         <input id="inputAdresa" type="text" name="adresa_dostave" placeholder="Upisite adresu paketomata" required>
         <br>
 
+        <div id="boxnowmap"></div>
+<script type="text/javascript">
+  var _bn_map_widget_config = {
+      partnerId: 123,
+      parentElement: "#boxnowmap",
+          afterSelect: function(selected){
+          alert(selected.boxnowLockerPostalCode);
+          alert(selected.boxnowLockerAddressLine1);
+          alert(selected.boxnowLockerId);
+      }
+  };
+  (function(d){var e = d.createElement("script");e.src = "https://widget-cdn.boxnow.hr/map-widget/client/v5.js";e.async = true;e.defer = true;d.getElementsByTagName("head")[0].appendChild(e);})(document);
+</script>
+
 
         <label>Najkasniji dostaviti do</label>
         <input id="datumDostave" type="date" name="najkasniji_datum_dostave" min="">
@@ -556,14 +570,14 @@
 
         })
 
-const datePicker=document.getElementById("datumDostave");
+        const datePicker = document.getElementById("datumDostave");
 
-datePicker.addEventListener("click",()=>{
-    var date=new Date()
-date.setDate(date.getDate() + 14)
+        datePicker.addEventListener("click", () => {
+            var date = new Date()
+            date.setDate(date.getDate() + 14)
 
-datePicker.min=date;
-})
+            datePicker.min = date;
+        })
 
         const productCards = document.querySelectorAll(".product-card");
         const orderTextarea = document.getElementById("orderTextarea");
