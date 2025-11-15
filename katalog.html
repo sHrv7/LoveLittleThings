@@ -87,7 +87,7 @@
 
 <body>
 
-    
+
     <!-- Navbar section -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
@@ -161,19 +161,10 @@
         <input id="inputAdresa" type="text" name="adresa_dostave" placeholder="Upisite adresu paketomata" required>
         <br>
 
+        <a href="javascript:;" class="boxnow-widget-button" id="chooseLockerBoxnowButton">Choose BoxNow Locker</a>
+
+
         <div id="boxnowmap"></div>
-<script type="text/javascript">
-  var _bn_map_widget_config = {
-      partnerId: 123,
-      parentElement: "#boxnowmap",
-          afterSelect: function(selected){
-          alert(selected.boxnowLockerPostalCode);
-          alert(selected.boxnowLockerAddressLine1);
-          alert(selected.boxnowLockerId);
-      }
-  };
-  (function(d){var e = d.createElement("script");e.src = "https://widget-cdn.boxnow.hr/map-widget/client/v5.js";e.async = true;e.defer = true;d.getElementsByTagName("head")[0].appendChild(e);})(document);
-</script>
 
 
         <label>Najkasniji dostaviti do</label>
@@ -557,9 +548,18 @@
         const selectAdrese = document.getElementById("selectDostava");
         const adresaInputField = document.getElementById("inputAdresa");
 
+        const boxnowButton = document.getElementById("chooseLockerBoxnowButton");
+
         selectAdrese.addEventListener("click", () => {
 
             var value = selectAdrese.value;
+
+            if (value == "Boxnow") {
+                boxnowButton.style.display = "Block";
+            }
+            else {
+                boxnowButton.style.display = "None";
+            }
 
             if (value == "GLS_kucna_adresa") {
                 adresaInputField.placeholder = "Upisite kucnu adresu";
@@ -644,6 +644,35 @@
                 .catch(err => alert("Greška: " + JSON.stringify(err)));
         });
     </script>
+
+
+    <script>
+        // Configuration object
+        var _bn_map_widget_config = {
+            partnerId: 123,                    // <-- replace with your partner ID
+            parentElement: "#boxnowmap",       // div where the widget will appear
+            buttonSelector: ".boxnow-widget-button", // the button that triggers the widget
+            type: "popup",                     // iframe or popup
+            gps: true,                          // use user location
+            autoclose: true,                    // closes automatically after selection
+            afterSelect: function (selected) {   // callback when a locker is selected
+                console.log("Selected locker:", selected);
+                // alert("Locker selected: " + selected.boxnowLockerAddressLine1);
+
+                adresaInputField.value = selected.boxnowLockerAddressLine1;
+            }
+        };
+
+        // Load BoxNow widget script
+        (function (d) {
+            var e = d.createElement("script");
+            e.src = "https://widget-cdn.boxnow.hr/map-widget/client/v5.js";
+            e.async = true;
+            e.defer = true;
+            d.head.appendChild(e);
+        })(document);
+    </script>
+
 </body>
 
 </html>
