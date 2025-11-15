@@ -148,6 +148,24 @@
             <option value="Whatsapp">Whatsapp</option>
         </select><br>
 
+        <label>Dostava</label>
+        <select id="selectDostava" name="nacin_dostave">
+            <option value="Boxnow">Boxnow paketomat 4€</option>
+            <option value="GLS_paketomat">GLS paketomat 7€</option>
+            <option value="GLS_kucna_adresa">GLS 7€</option>
+        </select><br>
+
+
+        <label>Adresa</label>
+        <input id="inputAdresa" type="text" name="adresa_dostave" placeholder="Upisite adresu paketomata" required>
+        <br>
+
+
+        <label>Najkasniji dostaviti do</label>
+        <input id="datumDostave" type="date" name="najkasniji_datum_dostave" min="">
+        <br>
+        <!-- date najkasnije dva tjedna od danas -->
+
         <label>Dodatne napomene</label>
         <textarea name="message" placeholder="Dodatne napomene u vezi prilagodbe"></textarea><br>
 
@@ -210,7 +228,7 @@
                     <img src="Katalog/Setovi/Vez1.jpg">
                     <img src="Katalog/Setovi/Vez2.jpg">
 
-                <button type="button" class="modalClose">Odustani</button>
+                    <button type="button" class="modalClose">Odustani</button>
                     <button type="button" class="nextBtn1">Sljedeće</button>
                 </div>
 
@@ -520,6 +538,32 @@
             step3.style.display = "none";
             step2.style.display = "block";
         });
+
+        const selectAdrese = document.getElementById("selectDostava");
+        const adresaInputField = document.getElementById("inputAdresa");
+
+        selectAdrese.addEventListener("click", () => {
+
+            var value = selectAdrese.value;
+
+            if (value == "GLS_kucna_adresa") {
+                adresaInputField.placeholder = "Upisite kucnu adresu";
+            }
+            else {
+                adresaInputField.placeholder = "Upisite adresu paketomata";
+            }
+
+
+        })
+
+const datePicker=document.getElementById("datumDostave");
+
+datePicker.addEventListener("click",()=>{
+    var date=new Date()
+date.setDate(date.getDate() + 14)
+
+datePicker.min=date;
+})
 
         const productCards = document.querySelectorAll(".product-card");
         const orderTextarea = document.getElementById("orderTextarea");
