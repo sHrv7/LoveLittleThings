@@ -14,18 +14,18 @@
     <link rel="icon" type="image/png" href="Images/Logo.jpg">
 
     <style>
-        .products {
+        /* .products {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
             margin-bottom: 20px;
-        }
+        } */
 
         .product-card {
-            width: 30%;
+            /* width: 30%; */
             cursor: pointer;
             text-align: center;
-            border: 1px solid #ccc;
+            /* border: 1px solid #ccc; */
             padding: 5px;
             border-radius: 5px;
             transition: 0.2s;
@@ -41,7 +41,9 @@
             /* max-height: 500px; */
             height: 25em;
             display: block;
-            object-fit: scale-down;
+            object-fit:cover;
+            border-radius: 50px;
+            /* border: 1px red solid; */
         }
 
         /* Modal styling */
@@ -93,6 +95,7 @@
             width: 100%;
             resize: none;
         }
+        
     </style>
 </head>
 
@@ -197,14 +200,64 @@
         <button type="submit">Pošalji</button>
     </form>
 
+    <div class="row" style="margin-left: 1em; margin-right: 1em;">
+        <div class="col-md-3 col-sm-6">
 
-    <h2>Personaliziraj krsni set</h2>
-    <div class="products" id="krsniSetContainer">
-        <div class="product-card" data-name="Krsni Set" data-category="krsniSet">
-            <img src="Katalog/Setovi/Krsni - Biblija, Krunica, Svijeca.jpg">
-            <p>Krsni Set</p>
+            <h3>Personaliziraj krsni set</h3>
+            <div class="products" id="krsniSetContainer">
+                <div class="product-card" data-name="Krsni Set" data-category="krsniSet">
+                    <img src="Katalog/Setovi/Krsni - Biblija, Krunica, Svijeca.jpg">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+
+            <h3>Viktorija nausnice</h3>
+            <div class="products" id="nausniceContainer">
+                <div class="product-card" data-name="Viktorija nausnice" data-category="nausnice">
+                    <img src="Galerija/Viktorija (43).jpeg">
+                </div>
+            </div>
+
+        </div>
+
+        
+        <div class="col-md-3 col-sm-6">
+
+            <h3>Macrame</h3>
+            <div class="products" id="narukviceContainer">
+                <div class="product-card" data-name="Macrame" data-category="narukvice">
+                    <img src="Images/Narukvice.jpg">
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="col-md-3 col-sm-6">
+
+            <h3>Privjesci</h3>
+            <div class="products" id="privjesciContainer">
+                <div class="product-card" data-name="Privjesci" data-category="privjesci">
+                    <img src="Images/Privjesci.jpg">
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="col-md-3 col-sm-6">
+
+            <h3>Ogrlice</h3>
+            <div class="products" id="ogrliceContainer">
+                <div class="product-card" data-name="Ogrlice" data-category="ogrlice">
+                    <img src="Images/Ogrlice.jpg">
+                </div>
+            </div>
+
         </div>
     </div>
+
 
     <div class="modal" id="krsniSetModal">
         <div class="modal-content">
@@ -448,8 +501,8 @@
                         <div class="col-sm-6">
                             <select name="Biblija" id="biblijaSelect">
                                 <option value="Ne">Ne</option>
-                                <option value="Da">Obicna</option>
-                                <option value="Premium">Moja krsna biblija</option>
+                                <option value="Mini biblija za djecu">Mini biblija za djecu</option>
+                                <option value="Moja krsna biblija">Moja krsna biblija</option>
                             </select>
                         </div>
 
@@ -489,14 +542,6 @@
     </div>
 
 
-    <h2>Narukvice</h2>
-    <div class="products" id="narukviceContainer">
-        <div class="product-card" data-name="Pearl Bracelet" data-category="narukvice">
-            <img src="Images/Narukvice.jpg" alt="Pearl Bracelet">
-            <p>Pearl Bracelet</p>
-        </div>
-    </div>
-
     <!-- Modal -->
     <div class="modal" id="narukviceModal">
         <div class="modal-content">
@@ -521,13 +566,6 @@
         </div>
     </div>
 
-    <h2>Nausnice</h2>
-    <div class="products" id="nausniceContainer">
-        <div class="product-card" data-name="Pearl Earrings" data-category="nausnice">
-            <img src="Images/Nausnice.jpg" alt="Pearl Earrings">
-            <p>Pearl Earrings</p>
-        </div>
-    </div>
 
     <!-- Modal -->
     <div class="modal" id="nausniceModal">
@@ -553,13 +591,6 @@
         </div>
     </div>
 
-    <h2>Ogrlice</h2>
-    <div class="products" id="ogrliceContainer">
-        <div class="product-card" data-name="Gold Necklace" data-category="ogrlice">
-            <img src="Images/Ogrlice.jpg" alt="Gold Necklace">
-            <p>Gold Necklace</p>
-        </div>
-    </div>
 
     <!-- Modal -->
     <div class="modal" id="ogrliceModal">
@@ -585,13 +616,6 @@
         </div>
     </div>
 
-    <h2>Privjesci</h2>
-    <div class="products" id="privjesciContainer">
-        <div class="product-card" data-name="Custom Pendant" data-category="privjesci">
-            <img src="Images/Privjesci.jpg" alt="Custom Pendant">
-            <p>Custom Pendant</p>
-        </div>
-    </div>
 
     <!-- Modal -->
     <div class="modal" id="privjesciModal">
