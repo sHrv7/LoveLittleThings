@@ -88,6 +88,7 @@
 <body>
 
 
+
     <!-- Navbar section -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
@@ -119,6 +120,9 @@
                             <a class="nav-link" href="./katalog.html">Katalog</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="./galerija.html">Galerija proizvoda</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="./info.html">Info</a>
                         </li>
                     </ul>
@@ -126,6 +130,7 @@
             </div>
         </div>
     </nav>
+
 
 
     <form id="orderForm">
@@ -161,11 +166,14 @@
         <input id="inputAdresa" type="text" name="adresa_dostave" placeholder="Upisite adresu paketomata" required>
         <br>
 
+        <a href="#" id="open-gls">Choose GLS Pickup Point</a>
         <a href="javascript:;" class="boxnow-widget-button" id="chooseLockerBoxnowButton">Choose BoxNow Locker</a>
         <br>
 
         <div id="boxnowmap"></div>
 
+        <gls-dpm-dialog country="hr" language="hr" filter-type="parcel-locker" id="gls-dialog">
+        </gls-dpm-dialog>
 
         <label>Najkasniji dostaviti do</label>
         <input id="datumDostave" type="date" name="najkasniji_datum_dostave" min="">
@@ -182,7 +190,7 @@
     <div class="products" id="krsniSetContainer">
         <div class="product-card" data-name="Krsni Set - Biblija, Krunica, Svijeća" data-category="krsni">
             <img src="Katalog/Setovi/Krsni - Biblija, Krunica, Svijeca.jpg">
-            <p>Krsni Set - Biblija, Krunica, Svijeća</p>
+            <p>Krsni Set Osnovni- Svijeća, Majica</p>
             <p>20€</p>
         </div>
         <div class="product-card" data-name="Krsni Set - Biblija, Svijeća" data-category="krsni">
@@ -561,6 +569,8 @@
                 boxnowButton.style.display = "None";
             }
 
+
+
             if (value == "GLS_kucna_adresa") {
                 adresaInputField.placeholder = "Upisite kucnu adresu";
             }
@@ -673,6 +683,32 @@
         })(document);
     </script>
 
+
+    <script>
+        // Load the GLS widget script
+        const script = document.createElement("script");
+        script.src = "https://map.gls-croatia.com/widget/gls-dpm.js"; // adjust for your country
+        document.head.appendChild(script);
+
+        script.onload = function () {
+            const dialog = document.getElementById("gls-dialog");
+            const link = document.getElementById("open-gls");
+
+            link.addEventListener("click", (e) => {
+                e.preventDefault();       // prevents the form from submitting
+                dialog.showModal();       // opens the popup
+            });
+
+            dialog.addEventListener("change", (event) => {
+                const selected = event.detail;
+                console.log("Selected delivery point:", selected);
+                // populate your form fields here, e.g.:
+                // document.getElementById("delivery_address").value = selected.address;
+
+                adresaInputField.value = selected.address;
+            });
+        };
+    </script>
 </body>
 
 </html>
