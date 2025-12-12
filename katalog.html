@@ -41,7 +41,7 @@
             /* max-height: 500px; */
             height: 25em;
             display: block;
-            object-fit:cover;
+            object-fit: cover;
             border-radius: 50px;
             /* border: 1px red solid; */
         }
@@ -95,7 +95,6 @@
             width: 100%;
             resize: none;
         }
-        
     </style>
 </head>
 
@@ -223,7 +222,7 @@
 
         </div>
 
-        
+
         <div class="col-md-3 col-sm-6">
 
             <h3>Macrame</h3>
@@ -234,7 +233,7 @@
             </div>
 
         </div>
-        
+
         <div class="col-md-3 col-sm-6">
 
             <h3>Privjesci</h3>
@@ -245,7 +244,7 @@
             </div>
 
         </div>
-        
+
         <div class="col-md-3 col-sm-6">
 
             <h3>Ogrlice</h3>
@@ -263,275 +262,273 @@
         <div class="modal-content">
             <h4>Prilagodi krsni set</h4>
             <form class="customForm">
-                <div class="container">
-                    <div class="row">
+                <div class="row">
 
-                        <div class="col-sm-6">
-                            Boja krsnog seta:
-                        </div>
-                        <div class="col-sm-6">
-                            <select name="Boja krsnog seta">
-                                <option value="Srebrna">Srebrna</option>
-                                <option value="Zlatna">Zlatna</option>
-                                <option value="Rose gold">Rose gold</option>
-                            </select>
-                        </div>
-                        <br><br>
+                    <div class="col-sm-6">
+                        Boja krsnog seta:
+                    </div>
+                    <div class="col-sm-6">
+                        <select name="Boja krsnog seta">
+                            <option value="Srebrna">Srebrna</option>
+                            <option value="Zlatna">Zlatna</option>
+                            <option value="Rose gold">Rose gold</option>
+                        </select>
+                    </div>
+                    <br><br>
 
-                        <div class="col-sm-6">
-                            Ime osobe koja se krsti:
-                        </div>
-                        <div class="col-sm-6">
-                            <input name="Ime osobe koja se krsti" type="text" required>
-                        </div>
-                        <br>
+                    <div class="col-sm-6">
+                        Ime osobe koja se krsti:
+                    </div>
+                    <div class="col-sm-6">
+                        <input name="Ime osobe koja se krsti" type="text" required>
+                    </div>
+                    <br>
 
-                        <h5>Svijeca</h5>
-                        <div class="col-sm-6">
-                            Boja vrpce:
-                        </div>
-                        <div class="col-sm-6">
-                            <select name="Boja vrpce">
-                                <option value="Svijetlo roza">Svijetlo roza</option>
-                                <option value="Tamno roza">Tamno roza</option>
-                                <option value="Svijetlo zelena">Svijetlo zelena</option>
-                                <option value="Zlatna">Zlatna</option>
-                                <option value="Ljubicasta">Ljubicasta</option>
-                                <option value="Lila">Lila</option>
-                                <option value="Kraljevsko zelena">Kraljevsko zelena</option>
-                                <option value="Bijela">Bijela</option>
-                                <option value="Vanilija">Vanilija</option>
-                                <option value="Krem">Krem</option>
-                                <option value="Smeda">Smeda</option>
-                                <option value="Maslinasta">Maslinasta</option>
-                                <option value="Svijetlo plava">Svijetlo plava</option>
-                                <option value="Tamno plava">Tamno plava</option>
+                    <h5>Svijeca</h5>
+                    <div class="col-sm-6">
+                        Boja vrpce:
+                    </div>
+                    <div class="col-sm-6">
+                        <select name="Boja vrpce">
+                            <option value="Svijetlo roza">Svijetlo roza</option>
+                            <option value="Tamno roza">Tamno roza</option>
+                            <option value="Svijetlo zelena">Svijetlo zelena</option>
+                            <option value="Zlatna">Zlatna</option>
+                            <option value="Ljubicasta">Ljubicasta</option>
+                            <option value="Lila">Lila</option>
+                            <option value="Kraljevsko zelena">Kraljevsko zelena</option>
+                            <option value="Bijela">Bijela</option>
+                            <option value="Vanilija">Vanilija</option>
+                            <option value="Krem">Krem</option>
+                            <option value="Smeda">Smeda</option>
+                            <option value="Maslinasta">Maslinasta</option>
+                            <option value="Svijetlo plava">Svijetlo plava</option>
+                            <option value="Tamno plava">Tamno plava</option>
 
-                            </select>
-                        </div>
-                        <br>
-                        <div class="col-sm-6">
-                            <img src="KrsniSetPrilagodbaSlike/BojeVrpce1.jpeg">
-                        </div>
-                        <div class="col-sm-6">
-                            <img src="KrsniSetPrilagodbaSlike/BojeVrpce2.jpeg">
-                        </div>
-                        <br>
-
-
-                        <div class="col-sm-6">
-                            Krila na svijeći:
-                        </div>
-                        <div class="col-sm-6">
-                            <select name="Krila na svijeci">
-                                <option value="ne">ne</option>
-                                <option value="da">da</option>
-                            </select>
-                        </div>
-                        <br>
-
-                        <h5>Unutrasnjos kutije</h5>
-
-                        <div class="col-sm-6">
-                            Poruka sredina:
-                        </div>
-                        <div class="col-sm-6">
-                            <textarea name="Poruka sredina kutije" placeholder="Vasa proizvoljna poruka/vers biblije"
-                                maxlength="60"></textarea>
-                        </div>
-                        <br>
-                        <div class="col-sm-6">
-                            Font:
-                        </div>
-                        <div class="col-sm-6">
-                            <select name="Font sredina">
-                                <option value="">Odaberi</option>
-                                <option value="Arial" style="font-family: Arial;">Arial</option>
-                                <option value="Verdana" style="font-family: Verdana;">Verdana</option>
-                                <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman
-                                </option>
-                                <option value="Georgia" style="font-family: Georgia;">Georgia</option>
-                                <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
-                                <option value="Tahoma" style="font-family: Tahoma;">Tahoma</option>
-                                <option value="Trebuchet MS" style="font-family: 'Trebuchet MS';">Trebuchet MS</option>
-                                <option value="Impact" style="font-family: Impact;">Impact</option>
-                                <option value="Comic Sans MS" style="font-family: 'Comic Sans MS';">Comic Sans MS
-                                </option>
-                            </select>
-                        </div>
-                        <br><br>
-
-                        <div class="col-sm-6">
-                            Poruka dolje:
-                        </div>
-                        <div class="col-sm-6">
-                            <textarea name="Poruka doljnji dio kutije"
-                                placeholder="Vasa proizvoljna poruka/vers biblije" maxlength="60"></textarea>
-                        </div>
-                        <br>
-                        <div class="col-sm-6">
-                            Font:
-                        </div>
-                        <div class="col-sm-6">
-                            <select name="Font dolje">
-                                <option value="">Odaberi</option>
-                                <option value="Arial" style="font-family: Arial;">Arial</option>
-                                <option value="Verdana" style="font-family: Verdana;">Verdana</option>
-                                <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman
-                                </option>
-                                <option value="Georgia" style="font-family: Georgia;">Georgia</option>
-                                <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
-                                <option value="Tahoma" style="font-family: Tahoma;">Tahoma</option>
-                                <option value="Trebuchet MS" style="font-family: 'Trebuchet MS';">Trebuchet MS</option>
-                                <option value="Impact" style="font-family: Impact;">Impact</option>
-                                <option value="Comic Sans MS" style="font-family: 'Comic Sans MS';">Comic Sans MS
-                                </option>
-                            </select>
-                        </div>
-                        <br>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="col-sm-6">
+                        <img src="KrsniSetPrilagodbaSlike/BojeVrpce1.jpeg">
+                    </div>
+                    <div class="col-sm-6">
+                        <img src="KrsniSetPrilagodbaSlike/BojeVrpce2.jpeg">
+                    </div>
+                    <br>
 
 
-                        <h5>Majica</h5>
+                    <div class="col-sm-6">
+                        Krila na svijeći:
+                    </div>
+                    <div class="col-sm-6">
+                        <select name="Krila na svijeci">
+                            <option value="ne">ne</option>
+                            <option value="da">da</option>
+                        </select>
+                    </div>
+                    <br>
 
-                        <div class="col-sm-6">
-                            Poruka na majici
-                        </div>
-                        <div class="col-sm-6">
-                            <textarea name="Poruka na majici" placeholder="Što želite da piše na majici"
-                                maxlength="60"></textarea>
-                        </div>
-                        <div class="col-sm-6">
-                            Font:
-                        </div>
-                        <div class="col-sm-6">
-                            <select name="Font majica">
-                                <option value="">Odaberi</option>
-                                <option value="Arial" style="font-family: Arial;">Arial</option>
-                                <option value="Verdana" style="font-family: Verdana;">Verdana</option>
-                                <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman
-                                </option>
-                                <option value="Georgia" style="font-family: Georgia;">Georgia</option>
-                                <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
-                                <option value="Tahoma" style="font-family: Tahoma;">Tahoma</option>
-                                <option value="Trebuchet MS" style="font-family: 'Trebuchet MS';">Trebuchet MS</option>
-                                <option value="Impact" style="font-family: Impact;">Impact</option>
-                                <option value="Comic Sans MS" style="font-family: 'Comic Sans MS';">Comic Sans MS
-                                </option>
-                            </select>
-                        </div>
+                    <h5>Unutrasnjos kutije</h5>
 
-                        <h5>Maramica</h5>
-                        <div class="col-sm-6">
-                            Stil maramice:
-                        </div>
-                        <div class="col-sm-6">
-                            <select name="Maramica">
-                                <option value="Ime">Ime</option>
-                                <option value="Ime + križić">Ime + križić</option>
-                                <option value="Ime + krila">Ime + krila</option>
-                            </select>
-                        </div>
+                    <div class="col-sm-6">
+                        Poruka sredina:
+                    </div>
+                    <div class="col-sm-6">
+                        <textarea name="Poruka sredina kutije" placeholder="Vasa proizvoljna poruka/vers biblije"
+                            maxlength="60"></textarea>
+                    </div>
+                    <br>
+                    <div class="col-sm-6">
+                        Font:
+                    </div>
+                    <div class="col-sm-6">
+                        <select name="Font sredina">
+                            <option value="">Odaberi</option>
+                            <option value="Arial" style="font-family: Arial;">Arial</option>
+                            <option value="Verdana" style="font-family: Verdana;">Verdana</option>
+                            <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman
+                            </option>
+                            <option value="Georgia" style="font-family: Georgia;">Georgia</option>
+                            <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
+                            <option value="Tahoma" style="font-family: Tahoma;">Tahoma</option>
+                            <option value="Trebuchet MS" style="font-family: 'Trebuchet MS';">Trebuchet MS</option>
+                            <option value="Impact" style="font-family: Impact;">Impact</option>
+                            <option value="Comic Sans MS" style="font-family: 'Comic Sans MS';">Comic Sans MS
+                            </option>
+                        </select>
+                    </div>
+                    <br><br>
 
-                        <h5>Krunica</h5>
-                        <div class="col-sm-6">
-                            Ukljuci krunicu:
+                    <div class="col-sm-6">
+                        Poruka dolje:
+                    </div>
+                    <div class="col-sm-6">
+                        <textarea name="Poruka doljnji dio kutije" placeholder="Vasa proizvoljna poruka/vers biblije"
+                            maxlength="60"></textarea>
+                    </div>
+                    <br>
+                    <div class="col-sm-6">
+                        Font:
+                    </div>
+                    <div class="col-sm-6">
+                        <select name="Font dolje">
+                            <option value="">Odaberi</option>
+                            <option value="Arial" style="font-family: Arial;">Arial</option>
+                            <option value="Verdana" style="font-family: Verdana;">Verdana</option>
+                            <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman
+                            </option>
+                            <option value="Georgia" style="font-family: Georgia;">Georgia</option>
+                            <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
+                            <option value="Tahoma" style="font-family: Tahoma;">Tahoma</option>
+                            <option value="Trebuchet MS" style="font-family: 'Trebuchet MS';">Trebuchet MS</option>
+                            <option value="Impact" style="font-family: Impact;">Impact</option>
+                            <option value="Comic Sans MS" style="font-family: 'Comic Sans MS';">Comic Sans MS
+                            </option>
+                        </select>
+                    </div>
+                    <br>
+
+
+                    <h5>Majica</h5>
+
+                    <div class="col-sm-6">
+                        Poruka na majici
+                    </div>
+                    <div class="col-sm-6">
+                        <textarea name="Poruka na majici" placeholder="Što želite da piše na majici"
+                            maxlength="60"></textarea>
+                    </div>
+                    <div class="col-sm-6">
+                        Font:
+                    </div>
+                    <div class="col-sm-6">
+                        <select name="Font majica">
+                            <option value="">Odaberi</option>
+                            <option value="Arial" style="font-family: Arial;">Arial</option>
+                            <option value="Verdana" style="font-family: Verdana;">Verdana</option>
+                            <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman
+                            </option>
+                            <option value="Georgia" style="font-family: Georgia;">Georgia</option>
+                            <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
+                            <option value="Tahoma" style="font-family: Tahoma;">Tahoma</option>
+                            <option value="Trebuchet MS" style="font-family: 'Trebuchet MS';">Trebuchet MS</option>
+                            <option value="Impact" style="font-family: Impact;">Impact</option>
+                            <option value="Comic Sans MS" style="font-family: 'Comic Sans MS';">Comic Sans MS
+                            </option>
+                        </select>
+                    </div>
+
+                    <h5>Maramica</h5>
+                    <div class="col-sm-6">
+                        Stil maramice:
+                    </div>
+                    <div class="col-sm-6">
+                        <select name="Maramica">
+                            <option value="Ime">Ime</option>
+                            <option value="Ime + križić">Ime + križić</option>
+                            <option value="Ime + krila">Ime + krila</option>
+                        </select>
+                    </div>
+
+                    <h5>Krunica</h5>
+                    <div class="col-sm-6">
+                        Ukljuci krunicu:
+                    </div>
+                    <div class="col-sm-6">
+                        <select name="Krunica" id="krunicaSelect">
+                            <option value="Ne">Ne</option>
+                            <option value="Da">Da</option>
+                        </select>
+                    </div>
+
+                    <div style="display: none;" id="krunicaSection">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                Boja perlica:
+                            </div>
+                            <div class="col-sm-6">
+                                <select name="Boja perlica na krunici">
+                                    <option value="Boja 1">Boja 1</option>
+                                    <option value="Boja 2">Boja 2</option>
+                                    <option value="Boja 3">Boja 3</option>
+                                    <option value="Boja 4">Boja 4</option>
+                                    <option value="Boja 5">Boja 5</option>
+                                    <option value="Boja 6">Boja 6</option>
+                                    <option value="Boja 7">Boja 7</option>
+                                    <option value="Boja 8">Boja 8</option>
+                                    <option value="Boja 9">Boja 9</option>
+                                    <option value="Boja 10">Boja 10</option>
+                                    <option value="Boja 11">Boja 11</option>
+                                    <option value="Boja 12">Boja 12</option>
+                                    <option value="Boja 13">Boja 13</option>
+                                    <option value="Boja 14">Boja 14</option>
+                                    <option value="Boja 15">Boja 15</option>
+                                    <option value="Boja 16">Boja 16</option>
+                                    <option value="Boja 17">Boja 17</option>
+                                    <option value="Boja 18">Boja 18</option>
+                                    <option value="Boja 19">Boja 19</option>
+                                    <option value="Boja 20">Boja 20</option>
+                                    <option value="Boja 21">Boja 21</option>
+                                    <option value="Boja 22">Boja 22</option>
+                                    <option value="Boja 23">Boja 23</option>
+                                    <option value="Boja 24">Boja 24</option>
+                                    <option value="Boja 25">Boja 25</option>
+                                    <option value="Boja 26">Boja 26</option>
+                                    <option value="Boja 27">Boja 27</option>
+                                    <option value="Boja 28">Boja 28</option>
+                                    <option value="Boja 29">Boja 29</option>
+                                    <option value="Boja 30">Boja 30</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <img src="KrsniSetPrilagodbaSlike/Perlice1.jpg">
+                            </div>
+                            <div class="col-sm-6">
+                                <img src="KrsniSetPrilagodbaSlike/Perlice2.jpg">
+                            </div>
+
                         </div>
-                        <div class="col-sm-6">
-                            <select name="Krunica" id="krunicaSelect">
-                                <option value="Ne">Ne</option>
-                                <option value="Da">Da</option>
-                            </select>
-                        </div>
+                    </div>
 
-                        <div style="display: none;" id="krunicaSection">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    Boja perlica:
-                                </div>
-                                <div class="col-sm-6">
-                                    <select name="Boja perlica na krunici">
-                                        <option value="Boja 1">Boja 1</option>
-                                        <option value="Boja 2">Boja 2</option>
-                                        <option value="Boja 3">Boja 3</option>
-                                        <option value="Boja 4">Boja 4</option>
-                                        <option value="Boja 5">Boja 5</option>
-                                        <option value="Boja 6">Boja 6</option>
-                                        <option value="Boja 7">Boja 7</option>
-                                        <option value="Boja 8">Boja 8</option>
-                                        <option value="Boja 9">Boja 9</option>
-                                        <option value="Boja 10">Boja 10</option>
-                                        <option value="Boja 11">Boja 11</option>
-                                        <option value="Boja 12">Boja 12</option>
-                                        <option value="Boja 13">Boja 13</option>
-                                        <option value="Boja 14">Boja 14</option>
-                                        <option value="Boja 15">Boja 15</option>
-                                        <option value="Boja 16">Boja 16</option>
-                                        <option value="Boja 17">Boja 17</option>
-                                        <option value="Boja 18">Boja 18</option>
-                                        <option value="Boja 19">Boja 19</option>
-                                        <option value="Boja 20">Boja 20</option>
-                                        <option value="Boja 21">Boja 21</option>
-                                        <option value="Boja 22">Boja 22</option>
-                                        <option value="Boja 23">Boja 23</option>
-                                        <option value="Boja 24">Boja 24</option>
-                                        <option value="Boja 25">Boja 25</option>
-                                        <option value="Boja 26">Boja 26</option>
-                                        <option value="Boja 27">Boja 27</option>
-                                        <option value="Boja 28">Boja 28</option>
-                                        <option value="Boja 29">Boja 29</option>
-                                        <option value="Boja 30">Boja 30</option>
-                                    </select>
-                                </div>
 
-                                <div class="col-sm-6">
-                                    <img src="KrsniSetPrilagodbaSlike/Perlice1.jpg">
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="KrsniSetPrilagodbaSlike/Perlice2.jpg">
-                                </div>
+                    <h5>Biblija</h5>
+                    <div class="col-sm-6">
+                        Ukljuci bibliju:
+                    </div>
+                    <div class="col-sm-6">
+                        <select name="Biblija" id="biblijaSelect">
+                            <option value="Ne">Ne</option>
+                            <option value="Mini biblija za djecu">Mini biblija za djecu</option>
+                            <option value="Moja krsna biblija">Moja krsna biblija</option>
+                        </select>
+                    </div>
 
+                    <div style="display: none;" id="biblijaSection">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                Prilagodba biblije:
+                            </div>
+                            <div class="col-sm-6">
+                                <select name="Sa imenom" id="biblijaSelect">
+                                    <option value="Da">Ime na bibliji</option>
+                                    <option value="Ne">Bez imena</option>
+                                </select>
                             </div>
                         </div>
-
-
-                        <h5>Biblija</h5>
-                        <div class="col-sm-6">
-                            Ukljuci bibliju:
-                        </div>
-                        <div class="col-sm-6">
-                            <select name="Biblija" id="biblijaSelect">
-                                <option value="Ne">Ne</option>
-                                <option value="Mini biblija za djecu">Mini biblija za djecu</option>
-                                <option value="Moja krsna biblija">Moja krsna biblija</option>
-                            </select>
-                        </div>
-
-                        <div style="display: none;" id="biblijaSection">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    Prilagodba biblije:
-                                </div>
-                                <div class="col-sm-6">
-                                    <select name="Sa imenom" id="biblijaSelect">
-                                        <option value="Da">Ime na bibliji</option>
-                                        <option value="Ne">Bez imena</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
 
 
 
-                        <div class="col-sm-6">
-
-                        </div>
-                        <div class="col-sm-6">
-
-                        </div>
-                        <br>
-
+                    <div class="col-sm-6">
 
                     </div>
+                    <div class="col-sm-6">
+
+                    </div>
+                    <br>
+
+
                 </div>
 
                 <br>
@@ -541,6 +538,60 @@
         </div>
     </div>
 
+
+    <div class="modal" id="nausniceModal">
+        <div class="modal-content">
+            <form class="customForm">
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        Par:
+                    </div>
+                    <div class="col-sm-6">
+                        <select name="Par" id="viktorijaNausniceSelect">
+                            <option value="Komplet">Komplet</option>
+                            <option value="Baza">Samo baza</option>
+                            <option value="Nadopuna">Samo nadopuna</option>
+                        </select>
+                    </div>
+                    <br><br>
+
+                    <div id="viktorijaNausniceBazaSection" class="row">
+                        <div class="col-sm-6">
+                            Boja baze:
+                        </div>
+                        <div class="col-sm-6">
+                            <select name="Boja baze">
+                                <option value="Zlatna">Zlatna</option>
+                                <option value="Srebrna">Srebrna</option>
+                            </select>
+                        </div>
+                        <br><br>
+                    </div>
+
+
+                    <div id="viktorijaNausniceBojaSection" class="row">
+                        <div class="col-sm-6">
+                            Boja nadopune:
+                        </div>
+                        <div class="col-sm-6">
+                            <select name="Boja nadopune" id="viktorija-boja-container">
+
+                            </select>
+                        </div>
+
+                        <div class="row" id="viktorija-image-container">
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <button type="submit">Dodaj</button>
+                <button type="button" class="modalClose">Odustani</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Modal -->
     <div class="modal" id="narukviceModal">
@@ -567,29 +618,6 @@
     </div>
 
 
-    <!-- Modal -->
-    <div class="modal" id="nausniceModal">
-        <div class="modal-content">
-            <h4 id="nausniceTitle"></h4>
-            <form class="customForm">
-                <label>Boja</label>
-                <select name="boja" required>
-                    <option value="">Odaberi</option>
-                    <option value="Gold">Gold</option>
-                    <option value="Silver">Silver</option>
-                </select><br>
-
-                <img src="Images/Prilagodba.jpg">
-                <img src="Images/Prilagodba.jpg">
-
-                <label>Napomena</label>
-                <textarea name="notes" placeholder="Doatna napomena vezana za ovaj proizvod"></textarea><br>
-
-                <button type="submit">Dodaj</button>
-                <button type="button" class="modalClose">Odustani</button>
-            </form>
-        </div>
-    </div>
 
 
     <!-- Modal -->
@@ -665,6 +693,57 @@
 
 
     <script>
+        fillViktorijaNausnice();
+
+        function fillViktorijaNausnice() {
+            const select = document.getElementById("viktorija-boja-container");
+
+            for (let i = 1; i <= 43; i++) {
+                const opt = document.createElement("option");
+                opt.value = `Boja ${i}`;
+                opt.textContent = `Boja ${i}`;
+                select.appendChild(opt);
+            }
+
+
+            const container = document.getElementById("viktorija-image-container");
+
+            for (let i = 1; i <= 43; i++) {
+                const div = document.createElement("div");
+                div.className = "col-md-4 col-xs-12";
+
+                div.innerHTML = `
+        <img src="ViktorijaNausnice/Viktorija (${i}).jpeg" style="object-fit: cover; width:99%"/>
+    `;
+
+                container.appendChild(div);
+            }
+
+        }
+
+        const viktorijaNausniceSelect = document.getElementById("viktorijaNausniceSelect");
+        const viktorijaNausniceBazaSection = document.getElementById("viktorijaNausniceBazaSection");
+        const viktorijaNausniceBojaSection = document.getElementById("viktorijaNausniceBojaSection");
+
+        viktorijaNausniceSelect.addEventListener("click", () => {
+
+            var value = viktorijaNausniceSelect.value;
+
+
+            viktorijaNausniceBazaSection.style.display = "flex";
+            viktorijaNausniceBojaSection.style.display = "flex";
+
+            if (value == "Baza") {
+                viktorijaNausniceBojaSection.style.display = "none";
+            }
+
+            if (value == "Nadopuna") {
+                viktorijaNausniceBazaSection.style.display = "none";
+            }
+
+
+        })
+
 
         const selectAdrese = document.getElementById("selectDostava");
         const adresaInputField = document.getElementById("inputAdresa");
@@ -677,17 +756,17 @@
             var value = selectAdrese.value;
 
             if (value == "Boxnow") {
-                boxnowButton.style.display = "Block";
+                boxnowButton.style.display = "flex";
             }
             else {
-                boxnowButton.style.display = "None";
+                boxnowButton.style.display = "none";
             }
 
             if (value == "GLS_paketomat") {
-                glsButton.style.display = "Block";
+                glsButton.style.display = "flex";
             }
             else {
-                glsButton.style.display = "None";
+                glsButton.style.display = "none";
             }
 
             if (value == "GLS_kucna_adresa") {
@@ -710,10 +789,10 @@
             var value = biblijaSelect.value;
 
             if (value == "Ne") {
-                biblijaSection.style.display = "None";
+                biblijaSection.style.display = "none";
             }
             else {
-                biblijaSection.style.display = "Block";
+                biblijaSection.style.display = "flex";
             }
 
         })
@@ -723,10 +802,10 @@
             var value = krunicaSelect.value;
 
             if (value == "Ne") {
-                krunicaSection.style.display = "None";
+                krunicaSection.style.display = "none";
             }
             else {
-                krunicaSection.style.display = "Block";
+                krunicaSection.style.display = "flex";
             }
 
         })
@@ -759,6 +838,8 @@
 
                 // Reset the form
                 currentModal.querySelector("form").reset();
+
+
                 currentModal.style.display = "flex";
             });
         });
@@ -790,7 +871,20 @@
                 orderTextarea.value = existing
 
                 // Close modal
-                form.closest(".modal").style.display = "none";
+
+                const currModal = form.closest(".modal");
+
+                currModal.style.display = "none";
+
+
+                if (currModal.id == "nausniceModal") {
+                    viktorijaNausniceBazaSection.style.display = "flex";
+                    viktorijaNausniceBojaSection.style.display = "flex";
+                }
+                if (currModal.id == "krsniSetModal") {
+                    krunicaSection.style.display = "none";
+                    biblijaSection.style.display = "none";
+                }
             });
         });
 
