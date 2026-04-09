@@ -1,27 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const assetBase = Astro.url.pathname === '/' ? '.' : '..';
+const baseUrl = import.meta.env.BASE_URL;
 
 const categories = [
-    { id: 'krsni-setovi', name: 'Krsni setovi', image: `${assetBase}/images/Krsni setovi.jpg` },
-    { id: 'narukvice', name: 'Narukvice', image: `${assetBase}/images/Narukvice.jpg` },
-    { id: 'nausnice', name: 'Naušnice', image: `${assetBase}/images/Nausnice.jpg` },
-    { id: 'ogrlice', name: 'Ogrlice', image: `${assetBase}/images/Ogrlice.jpg` },
-    { id: 'privjesci', name: 'Privjesci', image: `${assetBase}/images/Privjesci.jpg` },
+    { id: 'krsni-setovi', name: 'Krsni setovi', image: `${baseUrl}images/Krsni setovi.jpg` },
+    { id: 'narukvice', name: 'Narukvice', image: `${baseUrl}images/Narukvice.jpg` },
+    { id: 'nausnice', name: 'Naušnice', image: `${baseUrl}images/Nausnice.jpg` },
+    { id: 'ogrlice', name: 'Ogrlice', image: `${baseUrl}images/Ogrlice.jpg` },
+    { id: 'privjesci', name: 'Privjesci', image: `${baseUrl}images/Privjesci.jpg` },
 ];
 
 const testimonials = [
     { 
-        image: `${assetBase}/images/Dojam1.jpg`,
+        image: `${baseUrl}images/Dojam1.jpg`,
         text: 'Predivne krunice, komunikacija na visokoj razini, jako brzi odgovori i izuzetna ljubaznost! Za svaku pohvalu i preporuku!'
     },
     { 
-        image: `${assetBase}/images/Dojam2.jpg`,
+        image: `${baseUrl}images/Dojam2.jpg`,
         text: 'Naručila sam privjeske u obliku anđela kao poklon za goste na Krštenju! Privjesci su preslatki!🥰 Sve je stiglo u dogovorenom roku. Vlasnica je zaista ljubazna i profesionalna. Sve preporuke!❤️'
     },
     { 
-        image: `${assetBase}/images/Dojam3.jpg`,
+        image: `${baseUrl}images/Dojam3.jpg`,
         text: 'Krunice su predivne, jako sam zadovoljna komunikacijom, cijenom i rokom izrade. Sve dođe jako lijepo zapakirano i dobila sam i poklončić. Sve preporuke! 🔝😊'
     },
 ];
@@ -30,7 +30,7 @@ const testimonials = [
 <Layout title="Početna">
     <!-- Hero Section -->
     <section class="hero-section position-relative">
-        <img src={`${assetBase}/images/Hero.jpg`} class="img-fluid w-100" alt="Hero Image" style="max-height: 400px; object-fit: cover; display: block;">
+        <img src={`${baseUrl}images/Hero.jpg`} class="img-fluid w-100" alt="Hero Image" style="max-height: 400px; object-fit: cover; display: block;">
         <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="background: rgba(0,0,0,0.4);">
             <h1 class="text-white fw-bold display-4">Dobrodošli u Love Little Things by Kristina</h1>
             <p class="text-white lead">Pronađite male stvari koje čine život ljepšim.</p>
@@ -61,7 +61,7 @@ const testimonials = [
                     jedinstvenost svakog komada i kvalitetu koju možete osjetiti. Podržite domaću izradu i unesite
                     toplinu u svoj život s našim malim stvarima.
                 </p>
-                <img src={`${assetBase}/images/RucanRad.jpg`} alt="Ručan rad" class="img-fluid rounded shadow mt-4" style="max-height: 350px; object-fit: cover;">
+                <img src={`${baseUrl}images/RucanRad.jpg`} alt="Ručan rad" class="img-fluid rounded shadow mt-4" style="max-height: 350px; object-fit: cover;">
             </div>
         </div>
     </section>
@@ -85,7 +85,7 @@ const testimonials = [
     <section class="container my-5">
         <div class="row align-items-center justify-content-center">
             <div class="col-12 col-lg-5 mb-4 mb-lg-0">
-                <img src={`${assetBase}/images/Prilagodba.jpg`} alt="Prilagodba" class="img-fluid rounded shadow w-100" style="max-height: 350px; object-fit: cover;">
+                <img src={`${baseUrl}images/Prilagodba.jpg`} alt="Prilagodba" class="img-fluid rounded shadow w-100" style="max-height: 350px; object-fit: cover;">
             </div>
             <div class="col-12 col-lg-7">
                 <h2 class="fw-bold mb-4" style="color: var(--llt-accent-dark);">Prilagodba</h2>
