@@ -1,3 +1,4 @@
 export default {
-  output: "static"
+  output: "static",
+  base: "/LoveLittleThings/"
 };
