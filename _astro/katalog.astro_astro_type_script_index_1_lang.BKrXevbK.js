@@ -5,7 +5,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                         <label class="form-label" style="color: var(--llt-accent-dark);">Boja krsnog seta:</label>
                         <input type="hidden" name="boja_seta" id="boja_setaInput">
                         <div class="selection-grid mt-2">
-                            ${n.bojaSeta.map(e=>`<img src="${assetBase}/images/bojaSeta/${e}" data-field="boja_seta" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                            ${n.bojaSeta.map(e=>`<img src="${baseUrl}images/bojaSeta/${e}" data-field="boja_seta" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                         </div>
                     </div>
 
@@ -20,14 +20,14 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                             <label class="form-label" style="color: var(--llt-accent-dark);">Boja vrpce:</label>
                             <input type="hidden" name="boja_vrpce" id="boja_vrpceInput">
                             <div class="selection-grid mt-2">
-                                ${n.bojeVrpca.map(e=>`<img src="${assetBase}/images/bojeVrpca/${e}" data-field="boja_vrpce" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                                ${n.bojeVrpca.map(e=>`<img src="${baseUrl}images/bojeVrpca/${e}" data-field="boja_vrpce" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" style="color: var(--llt-accent-dark);">Krila na svijeći:</label>
                             <input type="hidden" name="krila" id="krilaInput">
                             <div class="selection-grid mt-2">
-                                ${n.krila.map(e=>`<img src="${assetBase}/images/krila/${e}" data-field="krila" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                                ${n.krila.map(e=>`<img src="${baseUrl}images/krila/${e}" data-field="krila" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                             <label class="form-label" style="color: var(--llt-accent-dark);">Font sredina:</label>
                             <input type="hidden" name="font_sredina" id="font_sredinaInput">
                             <div class="selection-grid mt-2">
-                                ${n.fontoviZaKrsniSet.map(e=>`<img src="${assetBase}/images/fontoviZaKrsniSet/${e}" data-field="font_sredina" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                                ${n.fontoviZaKrsniSet.map(e=>`<img src="${baseUrl}images/fontoviZaKrsniSet/${e}" data-field="font_sredina" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                             </div>
                         </div>
                         <div class="mb-3">
@@ -53,7 +53,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                             <label class="form-label" style="color: var(--llt-accent-dark);">Font dolje:</label>
                             <input type="hidden" name="font_dolje" id="font_doljeInput">
                             <div class="selection-grid mt-2">
-                                ${n.fontoviZaKrsniSet.map(e=>`<img src="${assetBase}/images/fontoviZaKrsniSet/${e}" data-field="font_dolje" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                                ${n.fontoviZaKrsniSet.map(e=>`<img src="${baseUrl}images/fontoviZaKrsniSet/${e}" data-field="font_dolje" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                             <label class="form-label" style="color: var(--llt-accent-dark);">Font majica:</label>
                             <input type="hidden" name="font_majica" id="font_majicaInput">
                             <div class="selection-grid mt-2">
-                                ${n.fontoviZaKrsniSet.map(e=>`<img src="${assetBase}/images/fontoviZaKrsniSet/${e}" data-field="font_majica" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                                ${n.fontoviZaKrsniSet.map(e=>`<img src="${baseUrl}images/fontoviZaKrsniSet/${e}" data-field="font_majica" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                         <h5 style="color: var(--llt-accent-mid);">Maramica</h5>
                         <input type="hidden" name="stil_maramice" id="stil_maramiceInput">
                         <div class="selection-grid mt-2">
-                            ${n.maramica.map(e=>`<img src="${assetBase}/images/maramica/${e}" data-field="stil_maramice" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                            ${n.maramica.map(e=>`<img src="${baseUrl}images/maramica/${e}" data-field="stil_maramice" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                         </div>
                     </div>
 
@@ -93,7 +93,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                             <label class="form-label" style="color: var(--llt-accent-dark);">Boja perlica:</label>
                             <input type="hidden" name="boja_perlica" id="boja_perlicaInput">
                             <div class="selection-grid mt-2">
-                                ${n.bojuPerlicaKrunice.map(e=>`<img src="${assetBase}/images/bojuPerlicaKrunice/${e}" data-field="boja_perlica" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                                ${n.bojuPerlicaKrunice.map(e=>`<img src="${baseUrl}images/bojuPerlicaKrunice/${e}" data-field="boja_perlica" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                             </div>
                         </div>
                     </div>
@@ -152,7 +152,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                         <label class="form-label" style="color: var(--llt-accent-dark);">Boja nadopune:</label>
                         <input type="hidden" name="boja_nadopune" id="boja_nadopuneInput">
                         <div class="image-grid mt-2">
-                            ${u.map((e,a)=>`<button type="button" class="option-card image-option" data-field="boja_nadopune" data-value="${e.value}" style="background-image: url('${assetBase}/images/ViktorijaNausnice/Viktorija (${a+1}).jpeg');" aria-label="${e.name}"></button>`).join("")}
+                            ${u.map((e,a)=>`<button type="button" class="option-card image-option" data-field="boja_nadopune" data-value="${e.value}" style="background-image: url('${baseUrl}images/ViktorijaNausnice/Viktorija (${a+1}).jpeg');" aria-label="${e.name}"></button>`).join("")}
                         </div>
                     </div>
 
