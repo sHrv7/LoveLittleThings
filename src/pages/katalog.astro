@@ -1,0 +1,707 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const assetBase = Astro.url.pathname === '/' ? '.' : '..';
+
+const categories = [
+    {
+        id: 'krsni-setovi',
+        name: 'Krsni setovi',
+        description: 'Kompletni setovi za krštenja',
+        price: '45-80 €',
+    },
+    {
+        id: 'narukvice',
+        name: 'Narukvice',
+        description: 'Elegantne i udobne narukvice',
+        price: '15-40 €',
+    },
+    {
+        id: 'nausnice',
+        name: 'Naušnice',
+        description: 'Različiti stilovi naušnica',
+        price: '10-35 €',
+    },
+    {
+        id: 'ogrlice',
+        name: 'Ogrlice',
+        description: 'Jedinstvene ogrlice',
+        price: '25-60 €',
+    },
+    {
+        id: 'privjesci',
+        name: 'Privjesci',
+        description: 'Mali privjesci',
+        price: '8-20 €',
+    },
+];
+---
+
+<Layout title="Katalog">
+    <div class="container py-5">
+        <h1 class="text-center mb-2 fw-bold" style="color: var(--llt-accent-dark);">Katalog Proizvoda</h1>
+        <p class="text-center mb-5" style="color: var(--llt-accent-dark);">Pronađite savršen proizvod ili ga prilagodite po svojoj želji</p>
+
+        <!-- Products Grid -->
+        <div class="row g-4" id="products-grid">
+            {categories.map(category => (
+                <div class="col-md-6 col-lg-4 product-item" data-category={category.id}>
+                    <div class="product-card">
+                        <img src={`${assetBase}/images/${category.name.replace('š', 's').replace('ć', 'c').replace('č', 'c')}.jpg`} 
+                             alt={category.name}
+                             class="product-img"
+                             style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px; display: block; margin-bottom: 12px;"/>
+                        <div class="product-title" style="color: var(--llt-accent-dark);">{category.name}</div>
+                        <p class="mb-2" style="color: var(--llt-accent-dark);">{category.description}</p>
+                        <p class="fw-bold mb-3" style="color: var(--llt-accent-mid);">Cijena: {category.price}</p>
+                        <div class="d-flex gap-2">
+                            <button 
+                                type="button" 
+                                class="btn w-100 customize-btn"
+                                data-product-id={category.id}
+                                data-product-name={category.name}
+                                style="background: var(--llt-accent-mid); border: none; color: white;"
+                            >
+                                <i class="fas fa-paint-brush me-2"></i>Prilagodi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        <div id="cartSection" class="mt-5" style="display: none; background: rgba(255, 240, 247, 0.9); padding: 20px; border-radius: 18px; border: 1px solid rgba(188, 136, 198, 0.35);">
+            <h2 class="fw-bold" style="color: var(--llt-accent-dark);">Vaša košarica za prilagodbu</h2>
+            <p class="text-muted">Ovdje su svi proizvodi koje ste dodali s detaljima prilagodbe. Pošaljite upit kad budete spremni.</p>
+            <textarea id="orderSummary" class="form-control" rows="8" readonly style="border: 1px solid var(--llt-accent-mid); background: #faf4fb; min-height: 220px;"></textarea>
+            <div class="delivery-selection mt-4">
+                <h3 class="h5" style="color: var(--llt-accent-dark);">Način dostave</h3>
+                <input type="hidden" id="deliveryMethodInput" name="nacin_dostave" value="">
+                <div class="delivery-grid d-flex flex-wrap gap-2 mt-2">
+                    <button type="button" class="option-card delivery-option" data-field="deliveryMethod" data-value="Boxnow" style="min-width: 140px;">Boxnow paketomat 4€</button>
+                    <button type="button" class="option-card delivery-option" data-field="deliveryMethod" data-value="GLS_paketomat" style="min-width: 140px;">GLS paketomat 7€</button>
+                    <button type="button" class="option-card delivery-option" data-field="deliveryMethod" data-value="GLS_kucna_adresa" style="min-width: 140px;">GLS kućna adresa 7€</button>
+                </div>
+                <div class="mt-3">
+                    <label class="form-label" style="color: var(--llt-accent-dark);">Adresa</label>
+                    <input type="text" id="deliveryAddressInput" class="form-control" placeholder="Odaberite adresu paketomata ili unesite adresu" style="border: 1px solid var(--llt-accent-mid);">
+                </div>
+                <div class="d-flex gap-2 flex-wrap mt-3">
+                    <button type="button" class="btn btn-outline-primary boxnow-widget-button" id="chooseLockerBoxnowButton" style="display:none;">Odaberi BoxNow paketomat</button>
+                    <button type="button" class="btn btn-outline-primary" id="open-gls" style="display:none;">Odaberi GLS paketomat</button>
+                </div>
+                <div id="boxnowmap" class="mt-3" style="min-height: 220px;"></div>
+                <script src="https://map.gls-croatia.com/widget/gls-dpm.js"></script>
+                <gls-dpm-dialog country="hr" language="hr" filter-type="parcel-locker" id="gls-dialog"></gls-dpm-dialog>
+            </div>
+            <div class="d-flex gap-2 mt-3 flex-wrap">
+                <button id="sendCartEmailBtn" type="button" class="btn btn-success">
+                    <i class="fas fa-envelope me-2"></i>Pošalji Upit
+                </button>
+                <button id="clearCartBtn" type="button" class="btn btn-secondary">
+                    <i class="fas fa-trash me-2"></i>Očisti košaricu
+                </button>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="text-center py-5" id="empty-state" style="display: none;">
+            <i class="fas fa-inbox" style="font-size: 3rem; color: #ddd; margin-bottom: 15px;"></i>
+            <p>Nema proizvoda u ovoj kategoriji</p>
+        </div>
+    </div>
+
+    <!-- Customization Modal -->
+    <div id="customizationModal" class="modal">
+        <div class="modal-content">
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script is:inline src={`${assetBase}/scripts/katalog-extras.js`}></script>
+    <script>
+        window.cart = [];
+        window.contactEmail = 'info@lovellthings.com';
+
+        // Colour and Option Lists
+        const Colors = {
+            bowRibbon: [
+                { name: 'Svijetlo roza', value: 'Svijetlo roza' },
+                { name: 'Tamno roza', value: 'Tamno roza' },
+                { name: 'Svijetlo zelena', value: 'Svijetlo zelena' },
+                { name: 'Zlatna', value: 'Zlatna' },
+                { name: 'Ljubicasta', value: 'Ljubicasta' },
+                { name: 'Lila', value: 'Lila' },
+                { name: 'Kraljevsko zelena', value: 'Kraljevsko zelena' },
+                { name: 'Bijela', value: 'Bijela' },
+                { name: 'Vanilija', value: 'Vanilija' },
+                { name: 'Krem', value: 'Krem' },
+                { name: 'Smeda', value: 'Smeda' },
+                { name: 'Maslinasta', value: 'Maslinasta' },
+                { name: 'Svijetlo plava', value: 'Svijetlo plava' },
+                { name: 'Tamno plava', value: 'Tamno plava' }
+            ],
+            metallic: [
+                { name: 'Srebrna', value: 'Srebrna' },
+                { name: 'Zlatna', value: 'Zlatna' },
+                { name: 'Rose gold', value: 'Rose gold' }
+            ],
+            metal: [
+                { name: 'Gold', value: 'Gold' },
+                { name: 'Silver', value: 'Silver' }
+            ]
+        };
+
+        const Fonts = [
+            { name: 'Arial', family: 'Arial' },
+            { name: 'Verdana', family: 'Verdana' },
+            { name: 'Times New Roman', family: 'Times New Roman' },
+            { name: 'Georgia', family: 'Georgia' },
+            { name: 'Courier New', family: 'Courier New' },
+            { name: 'Tahoma', family: 'Tahoma' },
+            { name: 'Trebuchet MS', family: 'Trebuchet MS' },
+            { name: 'Impact', family: 'Impact' },
+            { name: 'Comic Sans MS', family: 'Comic Sans MS' }
+        ];
+
+        const BeadColors = Array.from({length: 30}, (_, i) => ({name: `Boja ${i+1}`, value: `Boja ${i+1}`}));
+        const VikBeadColors = Array.from({length: 43}, (_, i) => ({name: `Boja ${i+1}`, value: `Boja ${i+1}`}));
+        const DeliveryOptions = [
+            { value: 'Boxnow', label: 'Boxnow paketomat 4€' },
+            { value: 'GLS_paketomat', label: 'GLS paketomat 7€' },
+            { value: 'GLS_kucna_adresa', label: 'GLS kućna adresa 7€' }
+        ];
+
+        const imageSelections = {
+            bojaSeta: ['Srebrna.jpeg', 'Zlatna.jpeg', 'Rose.jpeg'],
+            fontoviZaKrsniSet: [
+                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
+                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
+                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
+            ],
+            bojeVrpca: [
+                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
+                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
+                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
+            ],
+            krila: ['Ne.jpeg', 'Da.jpeg'],
+            maramica: [
+                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
+                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
+                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
+            ],
+            bojuPerlicaKrunice: [
+                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
+                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
+                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
+            ],
+        };
+
+        function attachModalHandlers() {
+            document.querySelectorAll('.option-card, .option-image').forEach(card => {
+                card.addEventListener('click', function() {
+                    const field = this.dataset.field;
+                    const value = this.dataset.value;
+                    if (!field || !value) return;
+                    const input = document.getElementById(`${field}Input`);
+                    if (!input) return;
+                    input.value = value;
+                    // Remove selected from both option-card and option-image with same field
+                    document.querySelectorAll(`.option-card[data-field="${field}"], .option-image[data-field="${field}"]`).forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+
+                    if (field === 'krunica') {
+                        document.getElementById('krunicaSection').style.display = value === 'Da' ? 'block' : 'none';
+                    }
+                    if (field === 'biblija') {
+                        document.getElementById('biblijaSection').style.display = value !== 'Ne' ? 'block' : 'none';
+                    }
+                    if (field === 'par') {
+                        const bazaShow = value !== 'Samo nadopuna';
+                        const nadopunaShow = value !== 'Samo baza';
+                        document.getElementById('bazaSection').style.display = bazaShow ? 'block' : 'none';
+                        document.getElementById('nadopunaSection').style.display = nadopunaShow ? 'block' : 'none';
+                    }
+                    if (field === 'deliveryMethod') {
+                        updateDeliverySelection(value);
+                    }
+                });
+            });
+
+            document.querySelectorAll('select').forEach(select => {
+                select.addEventListener('change', function() {
+                    const field = this.dataset.field;
+                    const value = this.value;
+                    if (!field || !value) return;
+                    const input = document.getElementById(`${field}Input`);
+                    if (input) input.value = value;
+
+                    if (field === 'krunica') {
+                        document.getElementById('krunicaSection').style.display = value === 'Da' ? 'block' : 'none';
+                    }
+                    if (field === 'biblija') {
+                        document.getElementById('biblijaSection').style.display = value !== 'Ne' ? 'block' : 'none';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.cancel-modal-btn').forEach(btn => {
+                btn.addEventListener('click', closeCustomizationModal);
+            });
+
+            const krsniForm = document.getElementById('krsniSetForm');
+            if (krsniForm) {
+                krsniForm.addEventListener('submit', submitKrsniSet);
+            }
+
+            const vikForm = document.getElementById('vikForm');
+            if (vikForm) {
+                vikForm.addEventListener('submit', submitViktorija);
+            }
+
+            const simpleForm = document.getElementById('customSimpleForm');
+            if (simpleForm) {
+                const productName = simpleForm.dataset.productName;
+                simpleForm.addEventListener('submit', (e) => submitSimpleProduct(e, productName));
+            }
+        }
+
+        function updateDeliverySelection(value) {
+            document.getElementById('deliveryMethodInput').value = value;
+            const boxnowButton = document.getElementById('chooseLockerBoxnowButton');
+            const glsButton = document.getElementById('open-gls');
+            const addressInput = document.getElementById('deliveryAddressInput');
+            if (boxnowButton && glsButton) {
+                boxnowButton.style.display = value === 'Boxnow' ? 'inline-flex' : 'none';
+                glsButton.style.display = value === 'GLS_paketomat' ? 'inline-flex' : 'none';
+            }
+            if (addressInput) {
+                addressInput.placeholder = value === 'GLS_kucna_adresa' ? 'Upišite adresu za dostavu na kućnu adresu' : 'Odaberite adresu paketomata';
+            }
+        }
+
+        function openKrsniSetModal() {
+            document.getElementById('modalContent').innerHTML = getKrsniSetForm();
+            document.getElementById('customizationModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            attachModalHandlers();
+        }
+
+        function openViktorijaNausnicasModal() {
+            document.getElementById('modalContent').innerHTML = getViktorijaNausnicasForm();
+            document.getElementById('customizationModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            attachModalHandlers();
+        }
+
+        function openSimpleProductModal(productName) {
+            document.getElementById('modalContent').innerHTML = getSimpleProductForm(productName);
+            document.getElementById('customizationModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            attachModalHandlers();
+        }
+
+        function getKrsniSetForm() {
+            return `
+                <h3 style="color: var(--llt-accent-mid);">Prilagodi Krsni Set</h3>
+                <form id="krsniSetForm">
+                    <div class="mb-3">
+                        <label class="form-label" style="color: var(--llt-accent-dark);">Boja krsnog seta:</label>
+                        <input type="hidden" name="boja_seta" id="boja_setaInput">
+                        <div class="selection-grid mt-2">
+                            ${imageSelections.bojaSeta.map(img => `<img src="${assetBase}/images/bojaSeta/${img}" data-field="boja_seta" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" style="color: var(--llt-accent-dark);">Ime osobe koja se krsti:</label>
+                        <input type="text" name="ime_osobe" class="form-control" required style="border: 1px solid var(--llt-accent-mid);">
+                    </div>
+
+                    <div class="border-top border-bottom py-3 my-3">
+                        <h5 style="color: var(--llt-accent-mid);">Svijeća</h5>
+                        <div class="mb-3">
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Boja vrpce:</label>
+                            <input type="hidden" name="boja_vrpce" id="boja_vrpceInput">
+                            <div class="selection-grid mt-2">
+                                ${imageSelections.bojeVrpca.map(img => `<img src="${assetBase}/images/bojeVrpca/${img}" data-field="boja_vrpce" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Krila na svijeći:</label>
+                            <input type="hidden" name="krila" id="krilaInput">
+                            <div class="selection-grid mt-2">
+                                ${imageSelections.krila.map(img => `<img src="${assetBase}/images/krila/${img}" data-field="krila" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-bottom py-3 my-3">
+                        <h5 style="color: var(--llt-accent-mid);">Unutrašnjost kutije</h5>
+                        <div class="mb-3">
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Poruka sredina kutije (max 60 znakova):</label>
+                            <textarea name="poruka_sredina" class="form-control" maxlength="60" rows="2" style="border: 1px solid var(--llt-accent-mid);"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Font sredina:</label>
+                            <input type="hidden" name="font_sredina" id="font_sredinaInput">
+                            <div class="selection-grid mt-2">
+                                ${imageSelections.fontoviZaKrsniSet.map(img => `<img src="${assetBase}/images/fontoviZaKrsniSet/${img}" data-field="font_sredina" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Poruka dolje kutije (max 60 znakova):</label>
+                            <textarea name="poruka_dolje" class="form-control" maxlength="60" rows="2" style="border: 1px solid var(--llt-accent-mid);"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Font dolje:</label>
+                            <input type="hidden" name="font_dolje" id="font_doljeInput">
+                            <div class="selection-grid mt-2">
+                                ${imageSelections.fontoviZaKrsniSet.map(img => `<img src="${assetBase}/images/fontoviZaKrsniSet/${img}" data-field="font_dolje" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-bottom py-3 my-3">
+                        <h5 style="color: var(--llt-accent-mid);">Majica</h5>
+                        <div class="mb-3">
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Poruka na majici (max 60 znakova):</label>
+                            <textarea name="poruka_majica" class="form-control" maxlength="60" rows="2" style="border: 1px solid var(--llt-accent-mid);"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Font majica:</label>
+                            <input type="hidden" name="font_majica" id="font_majicaInput">
+                            <div class="selection-grid mt-2">
+                                ${imageSelections.fontoviZaKrsniSet.map(img => `<img src="${assetBase}/images/fontoviZaKrsniSet/${img}" data-field="font_majica" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-bottom py-3 my-3">
+                        <h5 style="color: var(--llt-accent-mid);">Maramica</h5>
+                        <input type="hidden" name="stil_maramice" id="stil_maramiceInput">
+                        <div class="selection-grid mt-2">
+                            ${imageSelections.maramica.map(img => `<img src="${assetBase}/images/maramica/${img}" data-field="stil_maramice" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="border-bottom py-3 my-3">
+                        <h5 style="color: var(--llt-accent-mid);">Krunica</h5>
+                        <input type="hidden" name="krunica" id="krunicaInput">
+                        <select class="form-control" data-field="krunica" style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
+                            <option value="">-- Odaberi --</option>
+                            <option value="Ne">Ne</option>
+                            <option value="Da">Da</option>
+                        </select>
+                        <div id="krunicaSection" style="display: none; margin-top: 16px;">
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Boja perlica:</label>
+                            <input type="hidden" name="boja_perlica" id="boja_perlicaInput">
+                            <div class="selection-grid mt-2">
+                                ${imageSelections.bojuPerlicaKrunice.map(img => `<img src="${assetBase}/images/bojuPerlicaKrunice/${img}" data-field="boja_perlica" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-bottom py-3 my-3">
+                        <h5 style="color: var(--llt-accent-mid);">Biblija</h5>
+                        <input type="hidden" name="biblija" id="biblijaInput">
+                        <select class="form-control" data-field="biblija" style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
+                            <option value="">-- Odaberi --</option>
+                            <option value="Ne">Ne</option>
+                            <option value="Mini biblija za djecu">Mini biblija za djecu</option>
+                            <option value="Moja krsna biblija">Moja krsna biblija</option>
+                        </select>
+                        <div id="biblijaSection" style="display: none; margin-top: 16px;">
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Prilagodba biblije:</label>
+                            <input type="hidden" name="biblija_sa_imenom" id="biblija_sa_imenomInput">
+                            <div class="selection-grid mt-2">
+                                <button type="button" class="option-card" data-field="biblija_sa_imenom" data-value="Da">Ime na bibliji</button>
+                                <button type="button" class="option-card" data-field="biblija_sa_imenom" data-value="Ne">Bez imena</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4 flex-wrap">
+                        <button type="submit" class="btn btn-success w-100">
+                            <i class="fas fa-cart-plus me-2"></i>Dodaj u košaricu
+                        </button>
+                        <button type="button" class="btn btn-secondary w-100 cancel-modal-btn">
+                            <i class="fas fa-times me-2"></i>Otkaži
+                        </button>
+                    </div>
+                </form>
+            `;
+        }
+
+        function getViktorijaNausnicasForm() {
+            return `
+                <h3 style="color: var(--llt-accent-mid);">Prilagodi Viktorija Naušnice</h3>
+                <form id="vikForm">
+                    <div class="mb-3">
+                        <label class="form-label" style="color: var(--llt-accent-dark);">Par:</label>
+                        <input type="hidden" name="par" id="parInput">
+                        <div class="selection-grid mt-2">
+                            <button type="button" class="option-card" data-field="par" data-value="Komplet">Komplet</button>
+                            <button type="button" class="option-card" data-field="par" data-value="Samo baza">Samo baza</button>
+                            <button type="button" class="option-card" data-field="par" data-value="Samo nadopuna">Samo nadopuna</button>
+                        </div>
+                    </div>
+
+                    <div id="bazaSection" class="mb-3" style="display: none;">
+                        <label class="form-label" style="color: var(--llt-accent-dark);">Boja baze:</label>
+                        <input type="hidden" name="boja_baze" id="boja_bazeInput">
+                        <div class="selection-grid mt-2">
+                            <button type="button" class="option-card" data-field="boja_baze" data-value="Zlatna">Zlatna</button>
+                            <button type="button" class="option-card" data-field="boja_baze" data-value="Srebrna">Srebrna</button>
+                        </div>
+                    </div>
+
+                    <div id="nadopunaSection" class="mb-3" style="display: none;">
+                        <label class="form-label" style="color: var(--llt-accent-dark);">Boja nadopune:</label>
+                        <input type="hidden" name="boja_nadopune" id="boja_nadopuneInput">
+                        <div class="image-grid mt-2">
+                            ${VikBeadColors.map((c, i) => `<button type="button" class="option-card image-option" data-field="boja_nadopune" data-value="${c.value}" style="background-image: url('${assetBase}/images/ViktorijaNausnice/Viktorija (${i + 1}).jpeg');" aria-label="${c.name}"></button>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4 flex-wrap">
+                        <button type="submit" class="btn btn-success w-100">
+                            <i class="fas fa-cart-plus me-2"></i>Dodaj u košaricu
+                        </button>
+                        <button type="button" class="btn btn-secondary w-100 cancel-modal-btn">
+                            <i class="fas fa-times me-2"></i>Otkaži
+                        </button>
+                    </div>
+                </form>
+            `;
+        }
+
+        function getSimpleProductForm(productName) {
+            return `
+                <h3 style="color: var(--llt-accent-mid);">Prilagodi ${productName}</h3>
+                <form id="customSimpleForm" data-product-name="${productName}">
+                    <div class="mb-3">
+                        <label class="form-label" style="color: var(--llt-accent-dark);">Boja:</label>
+                        <input type="hidden" name="boja" id="bojaInput">
+                        <div class="selection-grid mt-2">
+                            <button type="button" class="option-card" data-field="boja" data-value="Gold">Gold</button>
+                            <button type="button" class="option-card" data-field="boja" data-value="Silver">Silver</button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" style="color: var(--llt-accent-dark);">Napomena:</label>
+                        <textarea name="napomena" class="form-control" rows="3" placeholder="Dodatna napomena vezana za ovaj proizvod" style="border: 1px solid var(--llt-accent-mid);"></textarea>
+                    </div>
+                    <div class="d-flex gap-2 mt-4 flex-wrap">
+                        <button type="submit" class="btn btn-success w-100">
+                            <i class="fas fa-cart-plus me-2"></i>Dodaj u košaricu
+                        </button>
+                        <button type="button" class="btn btn-secondary w-100 cancel-modal-btn">
+                            <i class="fas fa-times me-2"></i>Otkaži
+                        </button>
+                    </div>
+                </form>
+            `;
+        }
+
+        function submitKrsniSet(event) {
+            event.preventDefault();
+            const formData = new FormData(document.getElementById('krsniSetForm'));
+            const data = Object.fromEntries(formData);
+            cart.push({product: 'Krsni Set', ...data});
+            updateCartSummary();
+            closeCustomizationModal();
+        }
+
+        function submitViktorija(event) {
+            event.preventDefault();
+            const formData = new FormData(document.getElementById('vikForm'));
+            const data = Object.fromEntries(formData);
+            cart.push({product: 'Viktorija Naušnice', ...data});
+            updateCartSummary();
+            closeCustomizationModal();
+        }
+
+        function submitSimpleProduct(event, productName) {
+            event.preventDefault();
+            const formData = new FormData(document.getElementById('customSimpleForm'));
+            const data = Object.fromEntries(formData);
+            cart.push({product: productName, ...data});
+            updateCartSummary();
+            closeCustomizationModal();
+        }
+
+        function closeCustomizationModal() {
+            document.getElementById('customizationModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            document.getElementById('modalContent').innerHTML = '';
+        }
+
+        function updateCartSummary() {
+            const textarea = document.getElementById('orderSummary');
+            if (!cart.length) {
+                textarea.value = '';
+                document.getElementById('cartSection').style.display = 'none';
+                return;
+            }
+
+            let summary = '';
+            cart.forEach((item, index) => {
+                summary += `PROIZVOD ${index + 1}: ${item.product}\n`;
+                for (const [key, value] of Object.entries(item)) {
+                    if (key !== 'product' && value) {
+                        summary += `  ${key}: ${value}\n`;
+                    }
+                }
+                summary += '\n';
+            });
+            textarea.value = summary;
+            document.getElementById('cartSection').style.display = 'block';
+        }
+
+        function clearCart() {
+            cart.length = 0;
+            updateCartSummary();
+        }
+
+        document.querySelectorAll('.customize-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productId = this.dataset.productId;
+                const productName = this.dataset.productName;
+                if (productId === 'krsni-setovi') {
+                    openKrsniSetModal();
+                } else if (productId === 'nausnice') {
+                    openViktorijaNausnicasModal();
+                } else {
+                    openSimpleProductModal(productName);
+                }
+            });
+        });
+
+        document.getElementById('sendCartEmailBtn').addEventListener('click', sendCartEmail);
+        document.getElementById('clearCartBtn').addEventListener('click', clearCart);
+
+        document.getElementById('customizationModal').addEventListener('click', function(e) {
+            if (e.target === this) closeCustomizationModal();
+        });
+    </script>
+
+    <style>
+        .product-item {
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-customize {
+            background: var(--llt-accent-mid);
+            border: none;
+            color: white;
+        }
+
+        .btn-inquiry {
+            border-color: var(--llt-accent-mid);
+            color: var(--llt-accent-mid);
+            background: transparent;
+        }
+
+        .btn-customize:hover,
+        .btn-inquiry:hover {
+            opacity: 0.95;
+        }
+
+        .selection-grid,
+        .delivery-grid,
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+            gap: 10px;
+        }
+
+        .option-card {
+            border: 2px solid rgba(188, 136, 198, 0.4);
+            border-radius: 14px;
+            background: #fff;
+            padding: 14px 12px;
+            text-align: center;
+            color: var(--llt-accent-dark);
+            cursor: pointer;
+            transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+            min-height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+        }
+
+        .option-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--llt-accent-mid);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .option-card.selected {
+            border-color: var(--llt-accent-mid);
+            background: rgba(255, 240, 247, 0.95);
+            box-shadow: 0 10px 22px rgba(188, 136, 198, 0.2);
+        }
+
+        .option-image {
+            border: 2px solid rgba(188, 136, 198, 0.4);
+            border-radius: 14px;
+            background: #fff;
+            padding: 5px;
+            cursor: pointer;
+            transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .option-image:hover {
+            transform: translateY(-2px);
+            border-color: var(--llt-accent-mid);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .option-image.selected {
+            border-color: var(--llt-accent-mid);
+            box-shadow: 0 10px 22px rgba(188, 136, 198, 0.2);
+            opacity: 0.9;
+        }
+
+        .option-card:focus,
+        .option-image:focus {
+            outline: none;
+        }
+
+        .image-option {
+            background-size: cover;
+            background-position: center;
+            min-height: 120px;
+            position: relative;
+        }
+
+        .image-option::after {
+            content: attr(data-value);
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            right: 8px;
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.85);
+            color: var(--llt-accent-dark);
+            font-size: 0.8rem;
+            border-radius: 8px;
+        }
+
+        .modal-content {
+            max-width: 700px;
+        }
+
+        @media (max-width: 768px) {
+            .btn-group {
+                flex-direction: column !important;
+            }
+        }
+    </style>
+
+
