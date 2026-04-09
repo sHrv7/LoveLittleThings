@@ -4,16 +4,16 @@ interface Props {
 }
 
 const { title } = Astro.props;
-const assetPrefix = Astro.url.pathname === '/' ? '.' : '..';
-const routePrefix = Astro.url.pathname === '/' ? '.' : '..';
+const { SITE } = Astro.url;
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <!doctype html>
 <html lang="hr">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href={`${assetPrefix}/favicon.svg`} />
-		<link rel="icon" href={`${assetPrefix}/favicon.ico`} />
+		<link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
+		<link rel="icon" href={`${baseUrl}favicon.ico`} />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content="Love Little Things - Ručno izrađeni proizvodi od strane Kristine" />
@@ -26,7 +26,7 @@ const routePrefix = Astro.url.pathname === '/' ? '.' : '..';
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 		
 		<!-- Global Styles -->
-		<link rel="stylesheet" href={`${assetPrefix}/styles/global.css`}>
+		<link rel="stylesheet" href={`${baseUrl}styles/global.css`}>
 		
 		<title>{title} | Love Little Things</title>
 	</head>
@@ -34,8 +34,8 @@ const routePrefix = Astro.url.pathname === '/' ? '.' : '..';
 		<nav class="navbar navbar-expand-lg navbar-light" style="background: var(--llt-accent-mid);">
 			<div class="container">
 				<!-- Brand with logo -->
-				<a class="navbar-brand fw-bold d-flex align-items-center gap-2" href={routePrefix} style="color: var(--llt-accent-dark); font-size: 1.4rem;">
-					<img src={`${assetPrefix}/images/Logo.jpg`} style="height: 38px; width: auto; border-radius: 50%;">
+				<a class="navbar-brand fw-bold d-flex align-items-center gap-2" href={baseUrl} style="color: var(--llt-accent-dark); font-size: 1.4rem;">
+					<img src={`${baseUrl}images/Logo.jpg`} style="height: 38px; width: auto; border-radius: 50%;">
 					Love Little Things
 				</a>
 				<!-- Offcanvas Toggler -->
@@ -55,13 +55,13 @@ const routePrefix = Astro.url.pathname === '/' ? '.' : '..';
 					<div class="offcanvas-body">
 						<ul class="navbar-nav ms-auto">
 							<li class="nav-item">
-								<a class="nav-link" aria-current="page" href={routePrefix} style="color: var(--llt-accent-dark); font-weight: 500;">Početna</a>
+								<a class="nav-link" aria-current="page" href={baseUrl} style="color: var(--llt-accent-dark); font-weight: 500;">Početna</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href={`${routePrefix}/katalog`} style="color: var(--llt-accent-dark); font-weight: 500;">Katalog</a>
+								<a class="nav-link" href={`${baseUrl}katalog`} style="color: var(--llt-accent-dark); font-weight: 500;">Katalog</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href={`${routePrefix}/info`} style="color: var(--llt-accent-dark); font-weight: 500;">Info</a>
+								<a class="nav-link" href={`${baseUrl}info`} style="color: var(--llt-accent-dark); font-weight: 500;">Info</a>
 							</li>
 						</ul>
 					</div>
