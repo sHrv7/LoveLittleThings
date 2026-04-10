@@ -120,7 +120,7 @@ const categories = [
 
     <script is:inline src={`${baseUrl}scripts/katalog-extras.js`}></script>
     <script>
-        const baseUrl = "${baseUrl}";
+        const baseUrl = {JSON.stringify(baseUrl)};
         window.cart = [];
         window.contactEmail = 'info@lovellthings.com';
 
