@@ -310,7 +310,7 @@ const categories = [
                         <label class="form-label" style="color: var(--llt-accent-dark);">Boja krsnog seta:</label>
                         <input type="hidden" name="boja_seta" id="boja_setaInput">
                         <div class="selection-grid mt-2">
-                            ${imageSelections.bojaSeta.map(img => `<img src="${baseUrl}images/bojaSeta/${img}" data-field="boja_seta" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                            ${imageSelections.bojaSeta.map(img => `<img src="..images/bojaSeta/${img}" data-field="boja_seta" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                         </div>
                     </div>
 
