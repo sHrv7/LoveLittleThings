@@ -1,9 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const baseUrl = import.meta.env.BASE_URL;
-
-
 const categories = [
     {
         id: 'krsni-setovi',
@@ -48,7 +45,7 @@ const categories = [
             {categories.map(category => (
                 <div class="col-md-6 col-lg-4 product-item" data-category={category.id}>
                     <div class="product-card">
-                        <img src={`${baseUrl}images/${category.name.replace('š', 's').replace('ć', 'c').replace('č', 'c')}.jpg`} 
+                        <img src={`../images/${category.name.replace('š', 's').replace('ć', 'c').replace('č', 'c')}.jpg`} 
                              alt={category.name}
                              class="product-img"
                              style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px; display: block; margin-bottom: 12px;"/>
@@ -119,10 +116,10 @@ const categories = [
         </div>
     </div>
 
-    <script is:inline src={`${baseUrl}scripts/katalog-extras.js`}></script>
+    <script is:inline src="../scripts/katalog-extras.js"></script>
     
     <script>
-        const baseUrl = "{baseUrl}";
+        const baseUrl = '../';
         window.cart = [];
         window.contactEmail = 'info@lovellthings.com';
 
@@ -312,7 +309,7 @@ const categories = [
                         <label class="form-label" style="color: var(--llt-accent-dark);">Boja krsnog seta:</label>
                         <input type="hidden" name="boja_seta" id="boja_setaInput">
                         <div class="selection-grid mt-2">
-                            ${imageSelections.bojaSeta.map(img => `<img src="${baseUrl}images/bojaNadopuna/${img}" data-field="boja_seta" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                            ${imageSelections.bojaSeta.map(img => `<img src="../images/bojaNadopuna/${img}" data-field="boja_seta" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                         </div>
                     </div>
 
@@ -327,14 +324,14 @@ const categories = [
                             <label class="form-label" style="color: var(--llt-accent-dark);">Boja vrpce:</label>
                             <input type="hidden" name="boja_vrpce" id="boja_vrpceInput">
                             <div class="selection-grid mt-2">
-                                ${imageSelections.bojeVrpca.map(img => `<img src="${baseUrl}images/bojeVrpca/${img}" data-field="boja_vrpce" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                                ${imageSelections.bojeVrpca.map(img => `<img src="../images/bojeVrpca/${img}" data-field="boja_vrpce" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" style="color: var(--llt-accent-dark);">Krila na svijeći:</label>
                             <input type="hidden" name="krila" id="krilaInput">
                             <div class="selection-grid mt-2">
-                                ${imageSelections.krila.map(img => `<img src="${baseUrl}images/krila/${img}" data-field="krila" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                                ${imageSelections.krila.map(img => `<img src="../images/krila/${img}" data-field="krila" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                             </div>
                         </div>
                     </div>
@@ -349,7 +346,7 @@ const categories = [
                             <label class="form-label" style="color: var(--llt-accent-dark);">Font sredina:</label>
                             <input type="hidden" name="font_sredina" id="font_sredinaInput">
                             <div class="selection-grid mt-2">
-                                ${imageSelections.fontoviZaKrsniSet.map(img => `<img src="${baseUrl}images/fontoviZaKrsniSet/${img}" data-field="font_sredina" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                                ${imageSelections.fontoviZaKrsniSet.map(img => `<img src="../images/fontoviZaKrsniSet/${img}" data-field="font_sredina" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                             </div>
                         </div>
                         <div class="mb-3">
@@ -360,7 +357,7 @@ const categories = [
                             <label class="form-label" style="color: var(--llt-accent-dark);">Font dolje:</label>
                             <input type="hidden" name="font_dolje" id="font_doljeInput">
                             <div class="selection-grid mt-2">
-                                ${imageSelections.fontoviZaKrsniSet.map(img => `<img src="${baseUrl}images/fontoviZaKrsniSet/${img}" data-field="font_dolje" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                                ${imageSelections.fontoviZaKrsniSet.map(img => `<img src="../images/fontoviZaKrsniSet/${img}" data-field="font_dolje" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                             </div>
                         </div>
                     </div>
@@ -375,7 +372,7 @@ const categories = [
                             <label class="form-label" style="color: var(--llt-accent-dark);">Font majica:</label>
                             <input type="hidden" name="font_majica" id="font_majicaInput">
                             <div class="selection-grid mt-2">
-                                ${imageSelections.fontoviZaKrsniSet.map(img => `<img src="${baseUrl}images/fontoviZaKrsniSet/${img}" data-field="font_majica" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                                ${imageSelections.fontoviZaKrsniSet.map(img => `<img src="../images/fontoviZaKrsniSet/${img}" data-field="font_majica" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                             </div>
                         </div>
                     </div>
@@ -384,7 +381,7 @@ const categories = [
                         <h5 style="color: var(--llt-accent-mid);">Maramica</h5>
                         <input type="hidden" name="stil_maramice" id="stil_maramiceInput">
                         <div class="selection-grid mt-2">
-                            ${imageSelections.maramica.map(img => `<img src="${baseUrl}images/maramica/${img}" data-field="stil_maramice" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                            ${imageSelections.maramica.map(img => `<img src="../images/maramica/${img}" data-field="stil_maramice" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                         </div>
                     </div>
 
@@ -400,7 +397,7 @@ const categories = [
                             <label class="form-label" style="color: var(--llt-accent-dark);">Boja perlica:</label>
                             <input type="hidden" name="boja_perlica" id="boja_perlicaInput">
                             <div class="selection-grid mt-2">
-                                ${imageSelections.bojuPerlicaKrunice.map(img => `<img src="${baseUrl}images/bojuPerlicaKrunice/${img}" data-field="boja_perlica" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                                ${imageSelections.bojuPerlicaKrunice.map(img => `<img src="../images/bojuPerlicaKrunice/${img}" data-field="boja_perlica" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                             </div>
                         </div>
                     </div>
@@ -463,7 +460,7 @@ const categories = [
                         <label class="form-label" style="color: var(--llt-accent-dark);">Boja nadopune:</label>
                         <input type="hidden" name="boja_nadopune" id="boja_nadopuneInput">
                         <div class="image-grid mt-2">
-                            ${VikBeadColors.map((c, i) => `<button type="button" class="option-card image-option" data-field="boja_nadopune" data-value="${c.value}" style="background-image: url('${baseUrl}images/ViktorijaNausnice/Viktorija (${i + 1}).jpeg');" aria-label="${c.name}"></button>`).join('')}
+                            ${VikBeadColors.map((c, i) => `<button type="button" class="option-card image-option" data-field="boja_nadopune" data-value="${c.value}" style="background-image: url('../images/ViktorijaNausnice/Viktorija (${i + 1}).jpeg');" aria-label="${c.name}"></button>`).join('')}
                         </div>
                     </div>
 
