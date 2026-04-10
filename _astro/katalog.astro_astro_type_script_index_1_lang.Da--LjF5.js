@@ -5,7 +5,7 @@ const s="${baseUrl}";window.cart=[];window.contactEmail="info@lovellthings.com";
                         <label class="form-label" style="color: var(--llt-accent-dark);">Boja krsnog seta:</label>
                         <input type="hidden" name="boja_seta" id="boja_setaInput">
                         <div class="selection-grid mt-2">
-                            ${n.bojaSeta.map(e=>`<img src="..images/bojaSeta/${e}" data-field="boja_seta" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                            ${n.bojaSeta.map(e=>`<img src="../images/bojaSeta/${e}" data-field="boja_seta" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                         </div>
                     </div>
 
