@@ -148,7 +148,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                         </div>
                     </div>
 
-                    <div class="mb-3">
+                    <div id="nadopunaSection" class="mb-3" style="display: none;">
                         <label class="form-label" style="color: var(--llt-accent-dark);">Boja nadopune:</label>
                         <input type="hidden" name="boja_nadopune" id="boja_nadopuneInput">
                         <div class="selection-grid mt-2">
