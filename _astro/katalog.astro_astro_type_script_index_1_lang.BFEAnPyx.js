@@ -10,8 +10,8 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" style="color: var(--llt-accent-dark);">Ime osobe koja se krsti:</label>
-                        <input type="text" name="ime_osobe" class="form-control" required style="border: 1px solid var(--llt-accent-mid);">
+                        <label class="form-label" style="color: var(--llt-accent-dark);">Vanjski dio kutije:</label>
+                        <input type="text" name="vanjski_dio_kutije" class="form-control" required style="border: 1px solid var(--llt-accent-mid);">
                     </div>
 
                     <div class="border-top border-bottom py-3 my-3">
