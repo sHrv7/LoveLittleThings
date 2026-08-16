@@ -165,7 +165,7 @@ const categories = [
         ];
 
         const BeadColors = Array.from({length: 30}, (_, i) => ({name: `Boja ${i+1}`, value: `Boja ${i+1}`}));
-        const VikBeadColors = Array.from({length: 43}, (_, i) => ({name: `Boja ${i+1}`, value: `Boja ${i+1}`}));
+        const VikBeadColors = Array.from({length: 43}, (_, i) => ({name: `Viktorija (${i+1}).jpeg`, value: `Viktorija (${i+1}).jpeg`}));
         const DeliveryOptions = [
             { value: 'Boxnow', label: 'Boxnow paketomat 4€' },
             { value: 'GLS_paketomat', label: 'GLS paketomat 7€' },
@@ -460,7 +460,7 @@ const categories = [
                         <label class="form-label" style="color: var(--llt-accent-dark);">Boja nadopune:</label>
                         <input type="hidden" name="boja_nadopune" id="boja_nadopuneInput">
                         <div class="selection-grid mt-2">
-                            ${VikBeadColors.map(img => `<img src="../images/bojaNadopuna/${img}" data-field="boja_nadopune" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                            ${VikBeadColors.map(img => `<img src="../images/bojaNadopuna/${img.name}" data-field="boja_nadopune" data-value="${img.name.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                         </div>
                     </div>
 
