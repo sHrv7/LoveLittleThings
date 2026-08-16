@@ -456,11 +456,11 @@ const categories = [
                         </div>
                     </div>
 
-                    <div id="nadopunaSection" class="mb-3" style="display: none;">
+                    <div class="mb-3">
                         <label class="form-label" style="color: var(--llt-accent-dark);">Boja nadopune:</label>
                         <input type="hidden" name="boja_nadopune" id="boja_nadopuneInput">
-                        <div class="image-grid mt-2">
-                            ${VikBeadColors.map((c, i) => `<button type="button" class="option-card image-option" data-field="boja_nadopune" data-value="${c.value}" style="background-image: url('../images/ViktorijaNausnice/Viktorija (${i + 1}).jpeg');" aria-label="${c.name}"></button>`).join('')}
+                        <div class="selection-grid mt-2">
+                            ${VikBeadColors.map(img => `<img src="../images/bojaNadopuna/${img}" data-field="boja_nadopune" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                         </div>
                     </div>
 
