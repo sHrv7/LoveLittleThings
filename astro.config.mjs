@@ -2,5 +2,5 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   output: "static",
-  base: "/LoveLittleThings/"
+  site: "https://www.lovelittlethingsbykristina.hr"
 });
