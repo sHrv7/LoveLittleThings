@@ -9,28 +9,10 @@ const categories = [
         price: '45-80 €',
     },
     {
-        id: 'narukvice',
-        name: 'Narukvice',
-        description: 'Elegantne i udobne narukvice',
-        price: '15-40 €',
-    },
-    {
         id: 'nausnice',
         name: 'Naušnice',
         description: 'Različiti stilovi naušnica',
         price: '10-35 €',
-    },
-    {
-        id: 'ogrlice',
-        name: 'Ogrlice',
-        description: 'Jedinstvene ogrlice',
-        price: '25-60 €',
-    },
-    {
-        id: 'privjesci',
-        name: 'Privjesci',
-        description: 'Mali privjesci',
-        price: '8-20 €',
     },
 ];
 ---
@@ -365,24 +347,25 @@ const categories = [
                     <div class="border-bottom py-3 my-3">
                         <h5 style="color: var(--llt-accent-mid);">Majica</h5>
                         <div class="mb-3">
-                            <label class="form-label" style="color: var(--llt-accent-dark);">Poruka na majici (max 120 znakova):</label>
-                            <textarea name="poruka_majica" class="form-control" maxlength="120" rows="2" style="border: 1px solid var(--llt-accent-mid);"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" style="color: var(--llt-accent-dark);">Font majica:</label>
-                            <input type="hidden" name="font_majica" id="font_majicaInput">
-                            <div class="selection-grid mt-2">
-                                ${imageSelections.fontoviZaKrsniSet.map(img => `<img src="../images/fontoviZaKrsniSet/${img}" data-field="font_majica" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
-                            </div>
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Odabir za majicu:</label>
+                            <select name="stil_majice" class="form-control" style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
+                                <option value="">-- Odaberi --</option>
+                                <option value="Ime">Ime</option>
+                                <option value="Krizic">Krizic</option>
+                                <option value="Krizic + ime">Krizic + ime</option>
+                                <option value="Krizic + ime + od danas si dijete Bozje">Krizic + ime + od danas si dijete Bozje</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="border-bottom py-3 my-3">
                         <h5 style="color: var(--llt-accent-mid);">Maramica</h5>
-                        <input type="hidden" name="stil_maramice" id="stil_maramiceInput">
-                        <div class="selection-grid mt-2">
-                            ${imageSelections.maramica.map(img => `<img src="../images/maramica/${img}" data-field="stil_maramice" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
-                        </div>
+                        <select name="stil_maramice" id="stil_maramiceInput" class="form-control" style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
+                            <option value="">-- Odaberi --</option>
+                            <option value="Krizic">Krizic</option>
+                            <option value="Ime">Ime</option>
+                            <option value="Ime i krizic">Ime i krizic</option>
+                        </select>
                     </div>
 
                     <div class="border-bottom py-3 my-3">
