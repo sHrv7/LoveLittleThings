@@ -35,8 +35,8 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                     <div class="border-bottom py-3 my-3">
                         <h5 style="color: var(--llt-accent-mid);">Unutrašnjost kutije</h5>
                         <div class="mb-3">
-                            <label class="form-label" style="color: var(--llt-accent-dark);">Poruka sredina kutije (max 60 znakova):</label>
-                            <textarea name="poruka_sredina" class="form-control" maxlength="60" rows="2" style="border: 1px solid var(--llt-accent-mid);"></textarea>
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Poruka sredina kutije (max 120 znakova):</label>
+                            <textarea name="poruka_sredina" class="form-control" maxlength="120" rows="2" style="border: 1px solid var(--llt-accent-mid);"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" style="color: var(--llt-accent-dark);">Font sredina:</label>
@@ -46,8 +46,8 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" style="color: var(--llt-accent-dark);">Poruka dolje kutije (max 60 znakova):</label>
-                            <textarea name="poruka_dolje" class="form-control" maxlength="60" rows="2" style="border: 1px solid var(--llt-accent-mid);"></textarea>
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Posveta (max 120 znakova):</label>
+                            <textarea name="posveta" class="form-control" maxlength="120" rows="2" style="border: 1px solid var(--llt-accent-mid);"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" style="color: var(--llt-accent-dark);">Font dolje:</label>
@@ -61,8 +61,8 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                     <div class="border-bottom py-3 my-3">
                         <h5 style="color: var(--llt-accent-mid);">Majica</h5>
                         <div class="mb-3">
-                            <label class="form-label" style="color: var(--llt-accent-dark);">Poruka na majici (max 60 znakova):</label>
-                            <textarea name="poruka_majica" class="form-control" maxlength="60" rows="2" style="border: 1px solid var(--llt-accent-mid);"></textarea>
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Poruka na majici (max 120 znakova):</label>
+                            <textarea name="poruka_majica" class="form-control" maxlength="120" rows="2" style="border: 1px solid var(--llt-accent-mid);"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" style="color: var(--llt-accent-dark);">Font majica:</label>
