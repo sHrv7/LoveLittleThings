@@ -1,18 +1,34 @@
 (function () {
+    const EMAILJS_SERVICE_ID = 'service_k4vl9yo';
+    const EMAILJS_TEMPLATE_ID = 'template_yhv2dva';
+    const EMAILJS_PUBLIC_KEY = 'eUnKkyZbTPqfidvHa';
+    let emailJsPromise;
+
     function loadEmailJs() {
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js';
-        script.async = true;
-        script.onload = function () {
-            if (window.emailjs) {
-                try {
-                    emailjs.init('YOUR_PUBLIC_KEY');
-                } catch (error) {
-                    console.warn('EmailJS init failed', error);
-                }
-            }
-        };
-        document.head.appendChild(script);
+        if (!emailJsPromise) {
+            emailJsPromise = new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+                script.async = true;
+                script.onload = () => {
+                    if (!window.emailjs) {
+                        reject(new Error('EmailJS se nije mogao učitati.'));
+                        return;
+                    }
+
+                    try {
+                        window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+                        resolve(window.emailjs);
+                    } catch (error) {
+                        reject(error);
+                    }
+                };
+                script.onerror = () => reject(new Error('EmailJS se nije mogao učitati.'));
+                document.head.appendChild(script);
+            });
+        }
+
+        return emailJsPromise;
     }
 
     function loadBoxnowWidget() {
@@ -42,51 +58,90 @@
         document.head.appendChild(script);
     }
 
-    function loadGlsWidget() {
-        const dialog = document.getElementById('gls-dialog');
-        const link = document.getElementById('open-gls');
-        const addressField = document.getElementById('deliveryAddressInput');
-
-        if (!dialog || !link) {
-            return;
-        }
-
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (typeof dialog.showModal === 'function') {
-                dialog.showModal();
-            }
-        });
-
-        dialog.addEventListener('change', (event) => {
-            const selected = event.detail;
-            if (addressField && selected) {
-                // GLS widget vraća objekt s name, address, itd.
-                const address = selected.name ? `${selected.name}, ${selected.address || ''}` : selected.address || '';
-                addressField.value = address;
-            }
-        });
-    }
-
-    window.sendCartEmail = function () {
+    window.sendCartEmail = async function () {
         if (!window.cart || !window.cart.length) {
             alert('Košarica je prazna. Dodajte proizvod prije slanja upita.');
             return;
         }
 
-        const deliveryMethod = document.getElementById('deliveryMethodInput')?.value || '-';
-        const deliveryAddress = document.getElementById('deliveryAddressInput')?.value || '-';
-        const orderSummary = document.getElementById('orderSummary')?.value || '';
+        const nameInput = document.getElementById('customerNameInput');
+        const name = nameInput?.value.trim();
+        if (!name) {
+            alert('Unesite ime i prezime prije slanja upita.');
+            nameInput?.focus();
+            return;
+        }
 
-        const subject = encodeURIComponent('Upit za prilagodbu proizvoda - Love Little Things');
-        const bodyText = `Poštovani,\n\nŽelim sljedeće proizvode s prilagodbama:\n\n${orderSummary}\nNačin dostave: ${deliveryMethod}\nAdresa: ${deliveryAddress}\n\nLjubazno vas molim da me kontaktirate s detaljima i cijenom.`;
-        const body = encodeURIComponent(bodyText);
-        window.location.href = `mailto:${window.contactEmail}?subject=${subject}&body=${body}`;
+        const emailInput = document.getElementById('customerEmailInput');
+        if (!(emailInput instanceof HTMLInputElement) || !emailInput.value.trim()) {
+            alert('Unesite svoju e-adresu za odgovor.');
+            emailInput?.focus();
+            return;
+        }
+        emailInput.value = emailInput.value.trim();
+        if (!emailInput.checkValidity()) {
+            emailInput.reportValidity();
+            return;
+        }
+        const email = emailInput.value;
+
+        const deliveryAddressInput = document.getElementById('deliveryAddressInput');
+        const deliveryAddress = deliveryAddressInput?.value.trim();
+        if (!deliveryAddress) {
+            alert('Odaberite BoxNow paketomat prije slanja upita.');
+            document.getElementById('chooseLockerBoxnowButton')?.focus();
+            return;
+        }
+
+        const sendButton = document.getElementById('sendCartEmailBtn');
+        const originalButtonContent = sendButton ? sendButton.innerHTML : '';
+        if (sendButton) {
+            sendButton.disabled = true;
+            sendButton.setAttribute('aria-busy', 'true');
+            sendButton.textContent = 'Slanje upita...';
+        }
+
+        const deliveryMethod = document.getElementById('deliveryMethodInput')?.value || '-';
+        const cartContent = window.cart.map((item, index) => {
+            const customizations = Object.entries(item)
+                .filter(([key, value]) => key !== 'product' && value)
+                .map(([key, value]) => `  ${key}: ${value}`);
+            return [`PROIZVOD ${index + 1}: ${item.product}`, ...customizations].join('\n');
+        }).join('\n\n');
+        const message = [
+            'Poštovani,',
+            '',
+            'Želim sljedeće proizvode s prilagodbama:',
+            '',
+            cartContent,
+            '',
+            `Način dostave: ${deliveryMethod}`,
+            `Adresa: ${deliveryAddress}`,
+            '',
+            `E-adresa za odgovor: ${email}`,
+            '',
+            'Ljubazno vas molim da me kontaktirate s detaljima i cijenom.'
+        ].join('\n');
+
+        try {
+            const emailjs = await loadEmailJs();
+            await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { name, email, message });
+            window.clearCart?.();
+            alert('Upit je uspješno poslan.');
+        } catch (error) {
+            console.error('Cart email submission failed', error);
+            const reason = error?.text || error?.message || 'Nepoznata greška.';
+            alert(`Slanje upita nije uspjelo: ${reason}`);
+        } finally {
+            if (sendButton) {
+                sendButton.disabled = false;
+                sendButton.removeAttribute('aria-busy');
+                sendButton.innerHTML = originalButtonContent;
+            }
+        }
     };
 
     window.addEventListener('DOMContentLoaded', function () {
-        loadEmailJs();
         loadBoxnowWidget();
-        loadGlsWidget();
     });
 })();

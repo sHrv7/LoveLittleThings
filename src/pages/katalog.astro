@@ -8,12 +8,12 @@ const categories = [
         description: 'Kompletni setovi za krštenja',
         price: '45-80 €',
     },
-    {
-        id: 'nausnice',
-        name: 'Naušnice',
-        description: 'Različiti stilovi naušnica',
-        price: '10-35 €',
-    },
+    // {
+    //     id: 'nausnice',
+    //     name: 'Naušnice',
+    //     description: 'Različiti stilovi naušnica',
+    //     price: '10-35 €',
+    // },
 ];
 ---
 
@@ -53,26 +53,29 @@ const categories = [
         <div id="cartSection" class="mt-5" style="display: none; background: rgba(255, 240, 247, 0.9); padding: 20px; border-radius: 18px; border: 1px solid rgba(188, 136, 198, 0.35);">
             <h2 class="fw-bold" style="color: var(--llt-accent-dark);">Vaša košarica za prilagodbu</h2>
             <p class="text-muted">Ovdje su svi proizvodi koje ste dodali s detaljima prilagodbe. Pošaljite upit kad budete spremni.</p>
+            <div class="mb-3">
+                <label for="customerNameInput" class="form-label" style="color: var(--llt-accent-dark);">Ime i prezime</label>
+                <input type="text" id="customerNameInput" class="form-control" autocomplete="name" required placeholder="Unesite ime i prezime" style="border: 1px solid var(--llt-accent-mid);">
+            </div>
+            <div class="mb-3">
+                <label for="customerEmailInput" class="form-label" style="color: var(--llt-accent-dark);">E-adresa za odgovor</label>
+                <input type="email" id="customerEmailInput" class="form-control" autocomplete="email" required placeholder="Unesite svoju e-adresu" style="border: 1px solid var(--llt-accent-mid);">
+            </div>
             <textarea id="orderSummary" class="form-control" rows="8" readonly style="border: 1px solid var(--llt-accent-mid); background: #faf4fb; min-height: 220px;"></textarea>
             <div class="delivery-selection mt-4">
                 <h3 class="h5" style="color: var(--llt-accent-dark);">Način dostave</h3>
-                <input type="hidden" id="deliveryMethodInput" name="nacin_dostave" value="">
+                <input type="hidden" id="deliveryMethodInput" name="nacin_dostave" value="Boxnow">
                 <div class="delivery-grid d-flex flex-wrap gap-2 mt-2">
-                    <button type="button" class="option-card delivery-option" data-field="deliveryMethod" data-value="Boxnow" style="min-width: 140px;">Boxnow paketomat 4€</button>
-                    <button type="button" class="option-card delivery-option" data-field="deliveryMethod" data-value="GLS_paketomat" style="min-width: 140px;">GLS paketomat 7€</button>
-                    <button type="button" class="option-card delivery-option" data-field="deliveryMethod" data-value="GLS_kucna_adresa" style="min-width: 140px;">GLS kućna adresa 7€</button>
+                    <button type="button" class="option-card delivery-option selected" data-field="deliveryMethod" data-value="Boxnow" style="min-width: 140px;">Boxnow paketomat 4€</button>
                 </div>
                 <div class="mt-3">
-                    <label class="form-label" style="color: var(--llt-accent-dark);">Adresa</label>
-                    <input type="text" id="deliveryAddressInput" class="form-control" placeholder="Odaberite adresu paketomata ili unesite adresu" style="border: 1px solid var(--llt-accent-mid);">
+                    <label for="deliveryAddressInput" class="form-label" style="color: var(--llt-accent-dark);">Adresa BoxNow paketomata</label>
+                    <input type="text" id="deliveryAddressInput" class="form-control" placeholder="Odaberite BoxNow paketomat" readonly required style="border: 1px solid var(--llt-accent-mid);">
                 </div>
                 <div class="d-flex gap-2 flex-wrap mt-3">
-                    <button type="button" class="btn btn-outline-primary boxnow-widget-button" id="chooseLockerBoxnowButton" style="display:none;">Odaberi BoxNow paketomat</button>
-                    <button type="button" class="btn btn-outline-primary" id="open-gls" style="display:none;">Odaberi GLS paketomat</button>
+                    <button type="button" class="btn btn-outline-primary boxnow-widget-button" id="chooseLockerBoxnowButton" style="display:inline-flex;">Odaberi BoxNow paketomat</button>
                 </div>
                 <div id="boxnowmap" class="mt-3" style="min-height: 220px;"></div>
-                <script src="https://map.gls-croatia.com/widget/gls-dpm.js"></script>
-                <gls-dpm-dialog country="hr" language="hr" filter-type="parcel-locker" id="gls-dialog"></gls-dpm-dialog>
             </div>
             <div class="d-flex gap-2 mt-3 flex-wrap">
                 <button id="sendCartEmailBtn" type="button" class="btn btn-success">
@@ -102,8 +105,26 @@ const categories = [
     
     <script>
         const baseUrl = '../';
-        window.cart = [];
-        window.contactEmail = 'info@lovellthings.com';
+        type CartItem = { product: string } & Record<string, FormDataEntryValue>;
+        type CatalogWindow = Window & {
+            cart?: CartItem[];
+            clearCart?: () => void;
+            sendCartEmail?: () => void;
+        };
+
+        const cart: CartItem[] = [];
+        const catalogWindow = window as CatalogWindow;
+        catalogWindow.cart = cart;
+
+        function getElement<T extends HTMLElement>(id: string): T | null {
+            return document.getElementById(id) as T | null;
+        }
+
+        function getRequiredElement<T extends HTMLElement>(id: string): T {
+            const element = getElement<T>(id);
+            if (!element) throw new Error(`Required page element not found: ${id}`);
+            return element;
+        }
 
         // Colour and Option Lists
         const Colors = {
@@ -181,28 +202,32 @@ const categories = [
 
         function attachModalHandlers() {
             document.querySelectorAll('.option-card, .option-image').forEach(card => {
-                card.addEventListener('click', function() {
+                card.addEventListener('click', function(this: HTMLElement) {
                     const field = this.dataset.field;
                     const value = this.dataset.value;
                     if (!field || !value) return;
-                    const input = document.getElementById(`${field}Input`);
+                    const input = getElement<HTMLInputElement>(`${field}Input`);
                     if (!input) return;
                     input.value = value;
                     // Remove selected from both option-card and option-image with same field
-                    document.querySelectorAll(`.option-card[data-field="${field}"], .option-image[data-field="${field}"]`).forEach(c => c.classList.remove('selected'));
+                    document.querySelectorAll<HTMLElement>(`.option-card[data-field="${field}"], .option-image[data-field="${field}"]`).forEach(c => c.classList.remove('selected'));
                     this.classList.add('selected');
 
                     if (field === 'krunica') {
-                        document.getElementById('krunicaSection').style.display = value === 'Da' ? 'block' : 'none';
+                        const section = getElement('krunicaSection');
+                        if (section) section.style.display = value === 'Da' ? 'block' : 'none';
                     }
                     if (field === 'biblija') {
-                        document.getElementById('biblijaSection').style.display = value !== 'Ne' ? 'block' : 'none';
+                        const section = getElement('biblijaSection');
+                        if (section) section.style.display = value !== 'Ne' ? 'block' : 'none';
                     }
                     if (field === 'par') {
                         const bazaShow = value !== 'Samo nadopuna';
                         const nadopunaShow = value !== 'Samo baza';
-                        document.getElementById('bazaSection').style.display = bazaShow ? 'block' : 'none';
-                        document.getElementById('nadopunaSection').style.display = nadopunaShow ? 'block' : 'none';
+                        const bazaSection = getElement('bazaSection');
+                        const nadopunaSection = getElement('nadopunaSection');
+                        if (bazaSection) bazaSection.style.display = bazaShow ? 'block' : 'none';
+                        if (nadopunaSection) nadopunaSection.style.display = nadopunaShow ? 'block' : 'none';
                     }
                     if (field === 'deliveryMethod') {
                         updateDeliverySelection(value);
@@ -211,18 +236,20 @@ const categories = [
             });
 
             document.querySelectorAll('select').forEach(select => {
-                select.addEventListener('change', function() {
+                select.addEventListener('change', function(this: HTMLSelectElement) {
                     const field = this.dataset.field;
                     const value = this.value;
                     if (!field || !value) return;
-                    const input = document.getElementById(`${field}Input`);
+                    const input = getElement<HTMLInputElement>(`${field}Input`);
                     if (input) input.value = value;
 
                     if (field === 'krunica') {
-                        document.getElementById('krunicaSection').style.display = value === 'Da' ? 'block' : 'none';
+                        const section = getElement('krunicaSection');
+                        if (section) section.style.display = value === 'Da' ? 'block' : 'none';
                     }
                     if (field === 'biblija') {
-                        document.getElementById('biblijaSection').style.display = value !== 'Ne' ? 'block' : 'none';
+                        const section = getElement('biblijaSection');
+                        if (section) section.style.display = value !== 'Ne' ? 'block' : 'none';
                     }
                 });
             });
@@ -243,42 +270,43 @@ const categories = [
 
             const simpleForm = document.getElementById('customSimpleForm');
             if (simpleForm) {
-                const productName = simpleForm.dataset.productName;
+                const productName = simpleForm.dataset.productName ?? '';
                 simpleForm.addEventListener('submit', (e) => submitSimpleProduct(e, productName));
             }
         }
 
-        function updateDeliverySelection(value) {
-            document.getElementById('deliveryMethodInput').value = value;
+        function updateDeliverySelection(value: string) {
+            const deliveryMethodInput = getElement<HTMLInputElement>('deliveryMethodInput');
+            if (deliveryMethodInput) deliveryMethodInput.value = value;
             const boxnowButton = document.getElementById('chooseLockerBoxnowButton');
             const glsButton = document.getElementById('open-gls');
-            const addressInput = document.getElementById('deliveryAddressInput');
+            const addressInput = document.getElementById('deliveryAddressInput') as HTMLInputElement | null;
             if (boxnowButton && glsButton) {
                 boxnowButton.style.display = value === 'Boxnow' ? 'inline-flex' : 'none';
                 glsButton.style.display = value === 'GLS_paketomat' ? 'inline-flex' : 'none';
             }
             if (addressInput) {
-                addressInput.placeholder = value === 'GLS_kucna_adresa' ? 'Upišite adresu za dostavu na kućnu adresu' : 'Odaberite adresu paketomata';
+                addressInput.placeholder = value === 'GLS_kucna_adresa' ? 'Upišite adresu za dostavu na kućnu adresu' : 'Odaberite BoxNow paketomat';
             }
         }
 
         function openKrsniSetModal() {
-            document.getElementById('modalContent').innerHTML = getKrsniSetForm();
-            document.getElementById('customizationModal').classList.add('active');
+            getRequiredElement('modalContent').innerHTML = getKrsniSetForm();
+            getRequiredElement('customizationModal').classList.add('active');
             document.body.style.overflow = 'hidden';
             attachModalHandlers();
         }
 
         function openViktorijaNausnicasModal() {
-            document.getElementById('modalContent').innerHTML = getViktorijaNausnicasForm();
-            document.getElementById('customizationModal').classList.add('active');
+            getRequiredElement('modalContent').innerHTML = getViktorijaNausnicasForm();
+            getRequiredElement('customizationModal').classList.add('active');
             document.body.style.overflow = 'hidden';
             attachModalHandlers();
         }
 
-        function openSimpleProductModal(productName) {
-            document.getElementById('modalContent').innerHTML = getSimpleProductForm(productName);
-            document.getElementById('customizationModal').classList.add('active');
+        function openSimpleProductModal(productName: string) {
+            getRequiredElement('modalContent').innerHTML = getSimpleProductForm(productName);
+            getRequiredElement('customizationModal').classList.add('active');
             document.body.style.overflow = 'hidden';
             attachModalHandlers();
         }
@@ -348,8 +376,8 @@ const categories = [
                         <h5 style="color: var(--llt-accent-mid);">Majica</h5>
                         <div class="mb-3">
                             <label class="form-label" style="color: var(--llt-accent-dark);">Odabir za majicu:</label>
-                            <select name="stil_majice" class="form-control" style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
-                                <option value="">-- Odaberi --</option>
+                            <select name="stil_majice" class="form-control" required style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
+                                <option value="" disabled selected>-- Odaberi --</option>
                                 <option value="Ime">Ime</option>
                                 <option value="Krizic">Krizic</option>
                                 <option value="Krizic + ime">Krizic + ime</option>
@@ -360,8 +388,8 @@ const categories = [
 
                     <div class="border-bottom py-3 my-3">
                         <h5 style="color: var(--llt-accent-mid);">Maramica</h5>
-                        <select name="stil_maramice" id="stil_maramiceInput" class="form-control" style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
-                            <option value="">-- Odaberi --</option>
+                        <select name="stil_maramice" id="stil_maramiceInput" class="form-control" required style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
+                            <option value="" disabled selected>-- Odaberi --</option>
                             <option value="Krizic">Krizic</option>
                             <option value="Ime">Ime</option>
                             <option value="Ime i krizic">Ime i krizic</option>
@@ -371,8 +399,8 @@ const categories = [
                     <div class="border-bottom py-3 my-3">
                         <h5 style="color: var(--llt-accent-mid);">Krunica</h5>
                         <input type="hidden" name="krunica" id="krunicaInput">
-                        <select class="form-control" data-field="krunica" style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
-                            <option value="">-- Odaberi --</option>
+                        <select class="form-control" data-field="krunica" required style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
+                            <option value="" disabled selected>-- Odaberi --</option>
                             <option value="Ne">Ne</option>
                             <option value="Da">Da</option>
                         </select>
@@ -388,8 +416,8 @@ const categories = [
                     <div class="border-bottom py-3 my-3">
                         <h5 style="color: var(--llt-accent-mid);">Biblija</h5>
                         <input type="hidden" name="biblija" id="biblijaInput">
-                        <select class="form-control" data-field="biblija" style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
-                            <option value="">-- Odaberi --</option>
+                        <select class="form-control" data-field="biblija" required style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
+                            <option value="" disabled selected>-- Odaberi --</option>
                             <option value="Ne">Ne</option>
                             <option value="Mini biblija za djecu">Mini biblija za djecu</option>
                             <option value="Moja krsna biblija">Moja krsna biblija</option>
@@ -459,7 +487,7 @@ const categories = [
             `;
         }
 
-        function getSimpleProductForm(productName) {
+        function getSimpleProductForm(productName: string) {
             return `
                 <h3 style="color: var(--llt-accent-mid);">Prilagodi ${productName}</h3>
                 <form id="customSimpleForm" data-product-name="${productName}">
@@ -487,27 +515,33 @@ const categories = [
             `;
         }
 
-        function submitKrsniSet(event) {
+        function submitKrsniSet(event: SubmitEvent) {
             event.preventDefault();
-            const formData = new FormData(document.getElementById('krsniSetForm'));
+            const form = event.currentTarget;
+            if (!(form instanceof HTMLFormElement)) return;
+            const formData = new FormData(form);
             const data = Object.fromEntries(formData);
             cart.push({product: 'Krsni Set', ...data});
             updateCartSummary();
             closeCustomizationModal();
         }
 
-        function submitViktorija(event) {
+        function submitViktorija(event: SubmitEvent) {
             event.preventDefault();
-            const formData = new FormData(document.getElementById('vikForm'));
+            const form = event.currentTarget;
+            if (!(form instanceof HTMLFormElement)) return;
+            const formData = new FormData(form);
             const data = Object.fromEntries(formData);
             cart.push({product: 'Viktorija Naušnice', ...data});
             updateCartSummary();
             closeCustomizationModal();
         }
 
-        function submitSimpleProduct(event, productName) {
+        function submitSimpleProduct(event: SubmitEvent, productName: string) {
             event.preventDefault();
-            const formData = new FormData(document.getElementById('customSimpleForm'));
+            const form = event.currentTarget;
+            if (!(form instanceof HTMLFormElement)) return;
+            const formData = new FormData(form);
             const data = Object.fromEntries(formData);
             cart.push({product: productName, ...data});
             updateCartSummary();
@@ -515,16 +549,19 @@ const categories = [
         }
 
         function closeCustomizationModal() {
-            document.getElementById('customizationModal').classList.remove('active');
+            getElement('customizationModal')?.classList.remove('active');
             document.body.style.overflow = 'auto';
-            document.getElementById('modalContent').innerHTML = '';
+            const modalContent = getElement('modalContent');
+            if (modalContent) modalContent.innerHTML = '';
         }
 
         function updateCartSummary() {
-            const textarea = document.getElementById('orderSummary');
+            const textarea = getElement<HTMLTextAreaElement>('orderSummary');
+            const cartSection = getElement('cartSection');
+            if (!textarea || !cartSection) return;
             if (!cart.length) {
                 textarea.value = '';
-                document.getElementById('cartSection').style.display = 'none';
+                cartSection.style.display = 'none';
                 return;
             }
 
@@ -539,7 +576,7 @@ const categories = [
                 summary += '\n';
             });
             textarea.value = summary;
-            document.getElementById('cartSection').style.display = 'block';
+            cartSection.style.display = 'block';
         }
 
         function clearCart() {
@@ -547,10 +584,12 @@ const categories = [
             updateCartSummary();
         }
 
+        catalogWindow.clearCart = clearCart;
+
         document.querySelectorAll('.customize-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function(this: HTMLElement) {
                 const productId = this.dataset.productId;
-                const productName = this.dataset.productName;
+                const productName = this.dataset.productName ?? '';
                 if (productId === 'krsni-setovi') {
                     openKrsniSetModal();
                 } else if (productId === 'nausnice') {
@@ -561,10 +600,10 @@ const categories = [
             });
         });
 
-        document.getElementById('sendCartEmailBtn').addEventListener('click', sendCartEmail);
-        document.getElementById('clearCartBtn').addEventListener('click', clearCart);
+        getRequiredElement('sendCartEmailBtn').addEventListener('click', () => catalogWindow.sendCartEmail?.());
+        getRequiredElement('clearCartBtn').addEventListener('click', clearCart);
 
-        document.getElementById('customizationModal').addEventListener('click', function(e) {
+        getRequiredElement('customizationModal').addEventListener('click', function(this: HTMLElement, e: MouseEvent) {
             if (e.target === this) closeCustomizationModal();
         });
     </script>
