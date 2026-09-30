@@ -1,11 +1,11 @@
-window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30},(e,t)=>({name:`Boja ${t+1}`,value:`Boja ${t+1}`}));const u=Array.from({length:43},(e,t)=>({name:`Viktorija (${t+1}).jpeg`,value:`Viktorija (${t+1}).jpeg`})),n={bojaSeta:["Srebrna.jpeg","Zlatna.jpeg","Rose.jpeg"],fontoviZaKrsniSet:["TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg"],bojeVrpca:["TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg"],krila:["Ne.jpeg","Da.jpeg"],bojuPerlicaKrunice:["TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg"]};function m(){document.querySelectorAll(".option-card, .option-image").forEach(i=>{i.addEventListener("click",function(){const a=this.dataset.field,o=this.dataset.value;if(!a||!o)return;const s=document.getElementById(`${a}Input`);if(s){if(s.value=o,document.querySelectorAll(`.option-card[data-field="${a}"], .option-image[data-field="${a}"]`).forEach(r=>r.classList.remove("selected")),this.classList.add("selected"),a==="krunica"&&(document.getElementById("krunicaSection").style.display=o==="Da"?"block":"none"),a==="biblija"&&(document.getElementById("biblijaSection").style.display=o!=="Ne"?"block":"none"),a==="par"){const r=o!=="Samo nadopuna",p=o!=="Samo baza";document.getElementById("bazaSection").style.display=r?"block":"none",document.getElementById("nadopunaSection").style.display=p?"block":"none"}a==="deliveryMethod"&&b(o)}})}),document.querySelectorAll("select").forEach(i=>{i.addEventListener("change",function(){const a=this.dataset.field,o=this.value;if(!a||!o)return;const s=document.getElementById(`${a}Input`);s&&(s.value=o),a==="krunica"&&(document.getElementById("krunicaSection").style.display=o==="Da"?"block":"none"),a==="biblija"&&(document.getElementById("biblijaSection").style.display=o!=="Ne"?"block":"none")})}),document.querySelectorAll(".cancel-modal-btn").forEach(i=>{i.addEventListener("click",d)});const e=document.getElementById("krsniSetForm");e&&e.addEventListener("submit",S);const t=document.getElementById("vikForm");t&&t.addEventListener("submit",h);const l=document.getElementById("customSimpleForm");if(l){const i=l.dataset.productName;l.addEventListener("submit",a=>I(a,i))}}function b(e){document.getElementById("deliveryMethodInput").value=e;const t=document.getElementById("chooseLockerBoxnowButton"),l=document.getElementById("open-gls"),i=document.getElementById("deliveryAddressInput");t&&l&&(t.style.display=e==="Boxnow"?"inline-flex":"none",l.style.display=e==="GLS_paketomat"?"inline-flex":"none"),i&&(i.placeholder=e==="GLS_kucna_adresa"?"Upišite adresu za dostavu na kućnu adresu":"Odaberite adresu paketomata")}function v(){document.getElementById("modalContent").innerHTML=g(),document.getElementById("customizationModal").classList.add("active"),document.body.style.overflow="hidden",m()}function j(){document.getElementById("modalContent").innerHTML=f(),document.getElementById("customizationModal").classList.add("active"),document.body.style.overflow="hidden",m()}function y(e){document.getElementById("modalContent").innerHTML=k(e),document.getElementById("customizationModal").classList.add("active"),document.body.style.overflow="hidden",m()}function g(){return`
+const d=[],b=window;b.cart=d;function s(e){return document.getElementById(e)}function c(e){const a=s(e);if(!a)throw new Error(`Required page element not found: ${e}`);return a}Array.from({length:30},(e,a)=>({name:`Boja ${a+1}`,value:`Boja ${a+1}`}));const k=Array.from({length:43},(e,a)=>({name:`Viktorija (${a+1}).jpeg`,value:`Viktorija (${a+1}).jpeg`})),p={bojaSeta:["Srebrna.jpeg","Zlatna.jpeg","Rose.jpeg"],fontoviZaKrsniSet:["TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg"],bojeVrpca:["TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg"],krila:["Ne.jpeg","Da.jpeg"],bojuPerlicaKrunice:["TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg","TestSlika.jpeg"]};function v(){document.querySelectorAll(".option-card, .option-image").forEach(o=>{o.addEventListener("click",function(){const t=this.dataset.field,l=this.dataset.value;if(!t||!l)return;const r=s(`${t}Input`);if(r){if(r.value=l,document.querySelectorAll(`.option-card[data-field="${t}"], .option-image[data-field="${t}"]`).forEach(n=>n.classList.remove("selected")),this.classList.add("selected"),t==="krunica"){const n=s("krunicaSection");n&&(n.style.display=l==="Da"?"block":"none")}if(t==="biblija"){const n=s("biblijaSection");n&&(n.style.display=l!=="Ne"?"block":"none")}if(t==="par"){const n=l!=="Samo nadopuna",y=l!=="Samo baza",f=s("bazaSection"),j=s("nadopunaSection");f&&(f.style.display=n?"block":"none"),j&&(j.style.display=y?"block":"none")}t==="deliveryMethod"&&S(l)}})}),document.querySelectorAll("select").forEach(o=>{o.addEventListener("change",function(){const t=this.dataset.field,l=this.value;if(!t||!l)return;const r=s(`${t}Input`);if(r&&(r.value=l),t==="krunica"){const n=s("krunicaSection");n&&(n.style.display=l==="Da"?"block":"none")}if(t==="biblija"){const n=s("biblijaSection");n&&(n.style.display=l!=="Ne"?"block":"none")}})}),document.querySelectorAll(".cancel-modal-btn").forEach(o=>{o.addEventListener("click",u)});const e=document.getElementById("krsniSetForm");e&&e.addEventListener("submit",I);const a=document.getElementById("vikForm");a&&a.addEventListener("submit",x);const i=document.getElementById("customSimpleForm");if(i){const o=i.dataset.productName??"";i.addEventListener("submit",t=>E(t,o))}}function S(e){const a=s("deliveryMethodInput");a&&(a.value=e);const i=document.getElementById("chooseLockerBoxnowButton"),o=document.getElementById("open-gls"),t=document.getElementById("deliveryAddressInput");i&&o&&(i.style.display=e==="Boxnow"?"inline-flex":"none",o.style.display=e==="GLS_paketomat"?"inline-flex":"none"),t&&(t.placeholder=e==="GLS_kucna_adresa"?"Upišite adresu za dostavu na kućnu adresu":"Odaberite BoxNow paketomat")}function h(){c("modalContent").innerHTML=z(),c("customizationModal").classList.add("active"),document.body.style.overflow="hidden",v()}function T(){c("modalContent").innerHTML=_(),c("customizationModal").classList.add("active"),document.body.style.overflow="hidden",v()}function $(e){c("modalContent").innerHTML=w(e),c("customizationModal").classList.add("active"),document.body.style.overflow="hidden",v()}function z(){return`
                 <h3 style="color: var(--llt-accent-mid);">Prilagodi Krsni Set</h3>
                 <form id="krsniSetForm">
                     <div class="mb-3">
                         <label class="form-label" style="color: var(--llt-accent-dark);">Boja krsnog seta:</label>
                         <input type="hidden" name="boja_seta" id="boja_setaInput">
                         <div class="selection-grid mt-2">
-                            ${n.bojaSeta.map(e=>`<img src="../images/bojaNadopuna/${e}" data-field="boja_seta" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                            ${p.bojaSeta.map(e=>`<img src="../images/bojaNadopuna/${e}" data-field="boja_seta" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                         </div>
                     </div>
 
@@ -20,14 +20,14 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                             <label class="form-label" style="color: var(--llt-accent-dark);">Boja vrpce:</label>
                             <input type="hidden" name="boja_vrpce" id="boja_vrpceInput">
                             <div class="selection-grid mt-2">
-                                ${n.bojeVrpca.map(e=>`<img src="../images/bojeVrpca/${e}" data-field="boja_vrpce" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                                ${p.bojeVrpca.map(e=>`<img src="../images/bojeVrpca/${e}" data-field="boja_vrpce" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" style="color: var(--llt-accent-dark);">Krila na svijeći:</label>
                             <input type="hidden" name="krila" id="krilaInput">
                             <div class="selection-grid mt-2">
-                                ${n.krila.map(e=>`<img src="../images/krila/${e}" data-field="krila" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                                ${p.krila.map(e=>`<img src="../images/krila/${e}" data-field="krila" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                             <label class="form-label" style="color: var(--llt-accent-dark);">Font sredina:</label>
                             <input type="hidden" name="font_sredina" id="font_sredinaInput">
                             <div class="selection-grid mt-2">
-                                ${n.fontoviZaKrsniSet.map(e=>`<img src="../images/fontoviZaKrsniSet/${e}" data-field="font_sredina" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                                ${p.fontoviZaKrsniSet.map(e=>`<img src="../images/fontoviZaKrsniSet/${e}" data-field="font_sredina" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                             </div>
                         </div>
                         <div class="mb-3">
@@ -53,7 +53,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                             <label class="form-label" style="color: var(--llt-accent-dark);">Font dolje:</label>
                             <input type="hidden" name="font_dolje" id="font_doljeInput">
                             <div class="selection-grid mt-2">
-                                ${n.fontoviZaKrsniSet.map(e=>`<img src="../images/fontoviZaKrsniSet/${e}" data-field="font_dolje" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                                ${p.fontoviZaKrsniSet.map(e=>`<img src="../images/fontoviZaKrsniSet/${e}" data-field="font_dolje" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                             </div>
                         </div>
                     </div>
@@ -62,8 +62,8 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                         <h5 style="color: var(--llt-accent-mid);">Majica</h5>
                         <div class="mb-3">
                             <label class="form-label" style="color: var(--llt-accent-dark);">Odabir za majicu:</label>
-                            <select name="stil_majice" class="form-control" style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
-                                <option value="">-- Odaberi --</option>
+                            <select name="stil_majice" class="form-control" required style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
+                                <option value="" disabled selected>-- Odaberi --</option>
                                 <option value="Ime">Ime</option>
                                 <option value="Krizic">Krizic</option>
                                 <option value="Krizic + ime">Krizic + ime</option>
@@ -74,8 +74,8 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
 
                     <div class="border-bottom py-3 my-3">
                         <h5 style="color: var(--llt-accent-mid);">Maramica</h5>
-                        <select name="stil_maramice" id="stil_maramiceInput" class="form-control" style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
-                            <option value="">-- Odaberi --</option>
+                        <select name="stil_maramice" id="stil_maramiceInput" class="form-control" required style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
+                            <option value="" disabled selected>-- Odaberi --</option>
                             <option value="Krizic">Krizic</option>
                             <option value="Ime">Ime</option>
                             <option value="Ime i krizic">Ime i krizic</option>
@@ -85,8 +85,8 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                     <div class="border-bottom py-3 my-3">
                         <h5 style="color: var(--llt-accent-mid);">Krunica</h5>
                         <input type="hidden" name="krunica" id="krunicaInput">
-                        <select class="form-control" data-field="krunica" style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
-                            <option value="">-- Odaberi --</option>
+                        <select class="form-control" data-field="krunica" required style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
+                            <option value="" disabled selected>-- Odaberi --</option>
                             <option value="Ne">Ne</option>
                             <option value="Da">Da</option>
                         </select>
@@ -94,7 +94,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                             <label class="form-label" style="color: var(--llt-accent-dark);">Boja perlica:</label>
                             <input type="hidden" name="boja_perlica" id="boja_perlicaInput">
                             <div class="selection-grid mt-2">
-                                ${n.bojuPerlicaKrunice.map(e=>`<img src="../images/bojuPerlicaKrunice/${e}" data-field="boja_perlica" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                                ${p.bojuPerlicaKrunice.map(e=>`<img src="../images/bojuPerlicaKrunice/${e}" data-field="boja_perlica" data-value="${e.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                             </div>
                         </div>
                     </div>
@@ -102,8 +102,8 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                     <div class="border-bottom py-3 my-3">
                         <h5 style="color: var(--llt-accent-mid);">Biblija</h5>
                         <input type="hidden" name="biblija" id="biblijaInput">
-                        <select class="form-control" data-field="biblija" style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
-                            <option value="">-- Odaberi --</option>
+                        <select class="form-control" data-field="biblija" required style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
+                            <option value="" disabled selected>-- Odaberi --</option>
                             <option value="Ne">Ne</option>
                             <option value="Mini biblija za djecu">Mini biblija za djecu</option>
                             <option value="Moja krsna biblija">Moja krsna biblija</option>
@@ -127,7 +127,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                         </button>
                     </div>
                 </form>
-            `}function f(){return`
+            `}function _(){return`
                 <h3 style="color: var(--llt-accent-mid);">Prilagodi Viktorija Naušnice</h3>
                 <form id="vikForm">
                     <div class="mb-3">
@@ -153,7 +153,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                         <label class="form-label" style="color: var(--llt-accent-dark);">Boja nadopune:</label>
                         <input type="hidden" name="boja_nadopune" id="boja_nadopuneInput">
                         <div class="selection-grid mt-2">
-                            ${u.map(e=>`<img src="../images/bojaNadopuna/${e.name}" data-field="boja_nadopune" data-value="${e.name.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
+                            ${k.map(e=>`<img src="../images/bojaNadopuna/${e.name}" data-field="boja_nadopune" data-value="${e.name.replace(/\.(jpg|jpeg|png|gif|webp)$/i,"")}" class="option-image" alt="${e}">`).join("")}
                         </div>
                     </div>
 
@@ -166,7 +166,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                         </button>
                     </div>
                 </form>
-            `}function k(e){return`
+            `}function w(e){return`
                 <h3 style="color: var(--llt-accent-mid);">Prilagodi ${e}</h3>
                 <form id="customSimpleForm" data-product-name="${e}">
                     <div class="mb-3">
@@ -190,7 +190,7 @@ window.cart=[];window.contactEmail="info@lovellthings.com";Array.from({length:30
                         </button>
                     </div>
                 </form>
-            `}function S(e){e.preventDefault();const t=new FormData(document.getElementById("krsniSetForm")),l=Object.fromEntries(t);cart.push({product:"Krsni Set",...l}),c(),d()}function h(e){e.preventDefault();const t=new FormData(document.getElementById("vikForm")),l=Object.fromEntries(t);cart.push({product:"Viktorija Naušnice",...l}),c(),d()}function I(e,t){e.preventDefault();const l=new FormData(document.getElementById("customSimpleForm")),i=Object.fromEntries(l);cart.push({product:t,...i}),c(),d()}function d(){document.getElementById("customizationModal").classList.remove("active"),document.body.style.overflow="auto",document.getElementById("modalContent").innerHTML=""}function c(){const e=document.getElementById("orderSummary");if(!cart.length){e.value="",document.getElementById("cartSection").style.display="none";return}let t="";cart.forEach((l,i)=>{t+=`PROIZVOD ${i+1}: ${l.product}
-`;for(const[a,o]of Object.entries(l))a!=="product"&&o&&(t+=`  ${a}: ${o}
-`);t+=`
-`}),e.value=t,document.getElementById("cartSection").style.display="block"}function E(){cart.length=0,c()}document.querySelectorAll(".customize-btn").forEach(e=>{e.addEventListener("click",function(){const t=this.dataset.productId,l=this.dataset.productName;t==="krsni-setovi"?v():t==="nausnice"?j():y(l)})});document.getElementById("sendCartEmailBtn").addEventListener("click",sendCartEmail);document.getElementById("clearCartBtn").addEventListener("click",E);document.getElementById("customizationModal").addEventListener("click",function(e){e.target===this&&d()});
+            `}function I(e){e.preventDefault();const a=e.currentTarget;if(!(a instanceof HTMLFormElement))return;const i=new FormData(a),o=Object.fromEntries(i);d.push({product:"Krsni Set",...o}),m(),u()}function x(e){e.preventDefault();const a=e.currentTarget;if(!(a instanceof HTMLFormElement))return;const i=new FormData(a),o=Object.fromEntries(i);d.push({product:"Viktorija Naušnice",...o}),m(),u()}function E(e,a){e.preventDefault();const i=e.currentTarget;if(!(i instanceof HTMLFormElement))return;const o=new FormData(i),t=Object.fromEntries(o);d.push({product:a,...t}),m(),u()}function u(){s("customizationModal")?.classList.remove("active"),document.body.style.overflow="auto";const e=s("modalContent");e&&(e.innerHTML="")}function m(){const e=s("orderSummary"),a=s("cartSection");if(!e||!a)return;if(!d.length){e.value="",a.style.display="none";return}let i="";d.forEach((o,t)=>{i+=`PROIZVOD ${t+1}: ${o.product}
+`;for(const[l,r]of Object.entries(o))l!=="product"&&r&&(i+=`  ${l}: ${r}
+`);i+=`
+`}),e.value=i,a.style.display="block"}function g(){d.length=0,m()}b.clearCart=g;document.querySelectorAll(".customize-btn").forEach(e=>{e.addEventListener("click",function(){const a=this.dataset.productId,i=this.dataset.productName??"";a==="krsni-setovi"?h():a==="nausnice"?T():$(i)})});c("sendCartEmailBtn").addEventListener("click",()=>b.sendCartEmail?.());c("clearCartBtn").addEventListener("click",g);c("customizationModal").addEventListener("click",function(e){e.target===this&&u()});
