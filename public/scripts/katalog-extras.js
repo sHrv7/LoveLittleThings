@@ -102,6 +102,7 @@
         }
 
         const deliveryMethod = document.getElementById('deliveryMethodInput')?.value || '-';
+        const note = document.getElementById('orderNoteInput')?.value.trim() || '';
         const cartContent = window.cart.map((item, index) => {
             const customizations = Object.entries(item)
                 .filter(([key, value]) => key !== 'product' && value)
@@ -114,6 +115,7 @@
             'Želim sljedeće proizvode s prilagodbama:',
             '',
             cartContent,
+            ...(note ? ['', `Napomena: ${note}`] : []),
             '',
             `Način dostave: ${deliveryMethod}`,
             `Adresa: ${deliveryAddress}`,

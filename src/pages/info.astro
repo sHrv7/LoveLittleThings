@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <Layout title="Informacije i Pravila">
@@ -9,6 +11,27 @@ import Layout from '../layouts/Layout.astro';
             <h1 class="display-4 fw-bold" style="color: var(--llt-accent-dark);">Informacije o Naručivanju</h1>
             <p class="lead" style="color: var(--llt-accent-mid);">Sve što trebate znati prije narudžbe vašeg jedinstvenog proizvoda</p>
         </div>
+
+        <section class="row g-3 mb-5" aria-label="Korisne informacije">
+            <div class="col-md-6">
+                <div class="d-flex align-items-start gap-3 h-100 p-4" style="background: white; border-left: 4px solid var(--llt-accent-mid); border-radius: 8px;">
+                    <i class="fas fa-desktop mt-1" aria-hidden="true" style="color: var(--llt-accent-mid);"></i>
+                    <div>
+                        <h2 class="h5 mb-2" style="color: var(--llt-accent-dark);">Preporučujemo računalo</h2>
+                        <p class="mb-0" style="color: var(--llt-accent-dark);">Za lakši odabir detalja i ispunjavanje obrasca preporučujemo korištenje računala. Stranica je dostupna i na mobitelu.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex align-items-start gap-3 h-100 p-4" style="background: white; border-left: 4px solid var(--llt-accent-light); border-radius: 8px;">
+                    <i class="fas fa-images mt-1" aria-hidden="true" style="color: var(--llt-accent-mid);"></i>
+                    <div>
+                        <h2 class="h5 mb-2" style="color: var(--llt-accent-dark);">Trebate inspiraciju?</h2>
+                        <p class="mb-0" style="color: var(--llt-accent-dark);">Pogledajte <a href={`${baseUrl}galerija`} style="color: var(--llt-accent-dark); font-weight: 700;">galeriju</a> za ideje i primjere ručno izrađenih radova.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Rules Section -->
         <div class="row g-4 mb-5">

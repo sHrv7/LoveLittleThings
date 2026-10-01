@@ -1,0 +1,532 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+const photos = [
+    { file: 'a1.jpeg', alt: 'Poklon kutija s imenom Ena', caption: 'Ime u svakom detalju', category: 'setovi', categoryLabel: 'Krsni setovi' },
+    { file: 'a2.jpeg', alt: 'Otvorena kutija s personaliziranom porukom i ružičastom mašnom', caption: 'Pažljivo složena uspomena', category: 'setovi', categoryLabel: 'Krsni setovi' },
+    { file: 'a3.jpeg', alt: 'Personalizirani krsni set za Enu', caption: 'Mali set za veliki dan', category: 'setovi', categoryLabel: 'Krsni setovi' },
+    { file: 'a4.jpeg', alt: 'Detalji personaliziranog poklona za krštenje', caption: 'Poruka koja ostaje', category: 'setovi', categoryLabel: 'Krsni setovi' },
+    { file: 'a5.jpeg', alt: 'Ručna krunica u krsnoj kutiji', caption: 'Nježni zlatni detalji', category: 'setovi', categoryLabel: 'Krsni setovi' },
+    { file: 'a6.jpeg', alt: 'Krsni poklon set sa zlatnom mašnom', caption: 'Poklon složen s pažnjom', category: 'setovi', categoryLabel: 'Krsni setovi' },
+    { file: 'a7.jpeg', alt: 'Otvorena personalizirana kutija za krštenje', caption: 'Za poseban početak', category: 'setovi', categoryLabel: 'Krsni setovi' },
+    { file: 'a8.jpeg', alt: 'Poklon kutija s imenom Noel', caption: 'Noelov personalizirani set', category: 'setovi', categoryLabel: 'Krsni setovi' },
+    { file: 'a9.jpeg', alt: 'Krsna svijeća s plavom mašnom', caption: 'Plavi detalj za svečani dan', category: 'setovi', categoryLabel: 'Krsni setovi' },
+    { file: 'a10.jpeg', alt: 'Krsni set s plavim vrpcama', caption: 'Usklađeni detalji seta', category: 'setovi', categoryLabel: 'Krsni setovi' },
+    { file: 'a11.jpeg', alt: 'Poklon kutija s imenom Ada', caption: 'Personalizirano za Ariu', category: 'setovi', categoryLabel: 'Krsni setovi' },
+    { file: 'a12.jpeg', alt: 'Krsni set sa zelenim vrpcama', caption: 'Zeleni tonovi i ručni rad', category: 'setovi', categoryLabel: 'Krsni setovi' },
+    { file: 'a13.jpeg', alt: 'Maramica i krsni detalji sa zelenom vrpcom', caption: 'Sitnice čine uspomenu', category: 'setovi', categoryLabel: 'Krsni setovi' },
+    { file: 'a14.jpeg', alt: 'Ručna krunica s nježnim zlatnim detaljima', caption: 'Izbliza: ručno izrađena krunica', category: 'setovi', categoryLabel: 'Krsni setovi' },
+    { file: 'a15.jpeg', alt: 'Šareni izbor ručno izrađenih naušnica', caption: 'Viktorija kolekcija', category: 'nausnice', categoryLabel: 'Naušnice' },
+    { file: 'a16.jpeg', alt: 'Mašnice u više boja složene na podlozi', caption: 'Boje za svaki karakter', category: 'masnice', categoryLabel: 'Mašnice' },
+    { file: 'a17.jpeg', alt: 'Ručne mašnice u nježnim i živim bojama', caption: 'Mala mašna, puno mogućnosti', category: 'masnice', categoryLabel: 'Mašnice' },
+    { file: 'a18.jpeg', alt: 'Ručno izrađeni anđelčići i prigodni ukrasi', caption: 'Anđelčići za drage trenutke', category: 'andelcici', categoryLabel: 'Anđelčići' },
+];
+
+const filters = [
+    { label: 'Sve', value: 'sve' },
+    { label: 'Krsni setovi', value: 'setovi' },
+    { label: 'Mašnice', value: 'masnice' },
+    { label: 'Naušnice', value: 'nausnice' },
+    { label: 'Anđelčići', value: 'andelcici' },
+];
+---
+
+<Layout title="Galerija">
+    <main class="gallery-page">
+        <div class="gallery-shell">
+            <header class="gallery-heading">
+                <p class="gallery-kicker"><span></span> Love Little Things by Kristina</p>
+                <h1>Male stvari.<br /><em>Velike uspomene.</em></h1>
+                <div class="gallery-intro">
+                    <p>Ručno izrađeni detalji za dane koje želimo pamtiti. Svaki komad nastaje polako, s pažnjom i po vašoj želji.</p>
+                    <span class="gallery-count" id="galleryCount">{photos.length} fotografija</span>
+                </div>
+            </header>
+
+            <nav class="gallery-filters" aria-label="Filtriraj galeriju">
+                {filters.map((filter, index) => (
+                    <button type="button" class="gallery-filter" data-gallery-filter={filter.value} aria-pressed={index === 0 ? 'true' : 'false'}>
+                        {filter.label}
+                    </button>
+                ))}
+            </nav>
+
+            <section class="gallery-grid" id="galleryGrid" aria-label="Fotografije ručno izrađenih proizvoda">
+                {photos.map((photo, index) => (
+                    <button
+                        type="button"
+                        class="gallery-item"
+                        data-gallery-item
+                        data-category={photo.category}
+                        data-caption={photo.caption}
+                        aria-label={`Otvori fotografiju: ${photo.alt}`}
+                    >
+                        <span class="photo-frame">
+                            <img
+                                src={`${baseUrl}images/Galerija/${photo.file}`}
+                                alt={photo.alt}
+                                loading={index < 3 ? 'eager' : 'lazy'}
+                                decoding="async"
+                            />
+                            <span class="photo-open" aria-hidden="true"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                        </span>
+                        <span class="photo-caption">
+                            <span>{photo.caption}</span>
+                            <small>{photo.categoryLabel}</small>
+                        </span>
+                    </button>
+                ))}
+            </section>
+        </div>
+
+        <dialog class="photo-lightbox" id="photoLightbox" aria-label="Pregled fotografije">
+            <button type="button" class="lightbox-close" data-lightbox-close aria-label="Zatvori pregled">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="lightbox-arrow lightbox-previous" data-lightbox-previous aria-label="Prethodna fotografija">
+                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+            </button>
+            <figure>
+                <img id="lightboxImage" src="" alt="" />
+                <figcaption>
+                    <span id="lightboxCaption"></span>
+                    <small id="lightboxCounter"></small>
+                </figcaption>
+            </figure>
+            <button type="button" class="lightbox-arrow lightbox-next" data-lightbox-next aria-label="Sljedeća fotografija">
+                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            </button>
+        </dialog>
+    </main>
+
+    <script>
+        const galleryCards = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-gallery-item]'));
+        const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-gallery-filter]'));
+        const lightbox = document.querySelector<HTMLDialogElement>('#photoLightbox');
+        const lightboxImage = document.querySelector<HTMLImageElement>('#lightboxImage');
+        const lightboxCaption = document.querySelector<HTMLElement>('#lightboxCaption');
+        const lightboxCounter = document.querySelector<HTMLElement>('#lightboxCounter');
+        const galleryCount = document.querySelector<HTMLElement>('#galleryCount');
+        let activePhotoIndex = 0;
+
+        function visibleGalleryCards() {
+            return galleryCards.filter(card => !card.hidden);
+        }
+
+        function renderLightboxPhoto() {
+            const visibleCards = visibleGalleryCards();
+            const card = visibleCards[activePhotoIndex];
+            const image = card?.querySelector('img');
+            if (!card || !image || !lightboxImage || !lightboxCaption || !lightboxCounter) return;
+
+            lightboxImage.src = image.src;
+            lightboxImage.alt = image.alt;
+            lightboxCaption.textContent = card.dataset.caption ?? image.alt;
+            lightboxCounter.textContent = `${activePhotoIndex + 1} / ${visibleCards.length}`;
+        }
+
+        galleryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const visibleCards = visibleGalleryCards();
+                activePhotoIndex = visibleCards.indexOf(card);
+                if (activePhotoIndex < 0 || !lightbox) return;
+                renderLightboxPhoto();
+                lightbox.showModal();
+            });
+        });
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.dataset.galleryFilter ?? 'sve';
+                filterButtons.forEach(filter => filter.setAttribute('aria-pressed', String(filter === button)));
+                galleryCards.forEach(card => {
+                    card.hidden = category !== 'sve' && card.dataset.category !== category;
+                });
+                if (galleryCount) galleryCount.textContent = `${visibleGalleryCards().length} fotografija`;
+            });
+        });
+
+        document.querySelector('[data-lightbox-close]')?.addEventListener('click', () => lightbox?.close());
+        document.querySelector('[data-lightbox-previous]')?.addEventListener('click', () => {
+            const count = visibleGalleryCards().length;
+            activePhotoIndex = (activePhotoIndex - 1 + count) % count;
+            renderLightboxPhoto();
+        });
+        document.querySelector('[data-lightbox-next]')?.addEventListener('click', () => {
+            const count = visibleGalleryCards().length;
+            activePhotoIndex = (activePhotoIndex + 1) % count;
+            renderLightboxPhoto();
+        });
+        lightbox?.addEventListener('click', event => {
+            if (event.target === lightbox) lightbox.close();
+        });
+        lightbox?.addEventListener('keydown', event => {
+            if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+            const count = visibleGalleryCards().length;
+            activePhotoIndex = (activePhotoIndex + (event.key === 'ArrowRight' ? 1 : -1) + count) % count;
+            renderLightboxPhoto();
+        });
+    </script>
+
+    <style>
+        .gallery-page {
+            --gallery-ink: #433c7e;
+            --gallery-rose: #b86c88;
+            --gallery-green: #617967;
+            --gallery-paper: #fffaf7;
+            min-height: 100%;
+            padding: 56px 24px 88px;
+            color: var(--gallery-ink);
+            background-color: #fff8f6;
+            background-image: radial-gradient(rgba(188, 136, 198, 0.16) 0.7px, transparent 0.7px);
+            background-size: 18px 18px;
+        }
+
+        .gallery-shell {
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .gallery-heading {
+            display: grid;
+            grid-template-columns: 1fr minmax(220px, 330px);
+            align-items: end;
+            column-gap: 48px;
+            padding: 22px 0 30px;
+            border-bottom: 1px solid rgba(67, 60, 126, 0.2);
+        }
+
+        .gallery-kicker {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin: 0 0 14px;
+            color: var(--gallery-green);
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .gallery-kicker span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gallery-rose);
+        }
+
+        .gallery-heading h1 {
+            margin: 0;
+            color: var(--gallery-ink);
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 3.35rem;
+            font-weight: 400;
+            line-height: 1.06;
+        }
+
+        .gallery-heading h1 em {
+            color: var(--gallery-rose);
+            font-weight: 400;
+        }
+
+        .gallery-intro {
+            padding-bottom: 5px;
+        }
+
+        .gallery-intro p {
+            margin: 0 0 12px;
+            color: #5c5969;
+            font-size: 0.98rem;
+        }
+
+        .gallery-count {
+            color: var(--gallery-green);
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .gallery-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 24px 0 20px;
+        }
+
+        .gallery-filter {
+            padding: 8px 14px;
+            border: 1px solid rgba(67, 60, 126, 0.22);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.64);
+            color: var(--gallery-ink);
+            font: inherit;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+        }
+
+        .gallery-filter:hover,
+        .gallery-filter[aria-pressed='true'] {
+            border-color: var(--gallery-ink);
+            background: var(--gallery-ink);
+            color: white;
+        }
+
+        .gallery-filter:focus-visible,
+        .gallery-item:focus-visible,
+        .lightbox-close:focus-visible,
+        .lightbox-arrow:focus-visible {
+            outline: 3px solid #c58c52;
+            outline-offset: 3px;
+        }
+
+        .gallery-grid {
+            columns: 4;
+            column-gap: 18px;
+        }
+
+        .gallery-item {
+            display: block;
+            width: 100%;
+            margin: 0 0 20px;
+            padding: 0;
+            break-inside: avoid;
+            border: 0;
+            background: transparent;
+            color: inherit;
+            text-align: left;
+            cursor: zoom-in;
+        }
+
+        .gallery-item[hidden] {
+            display: none !important;
+        }
+
+        .photo-frame {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            border: 1px solid rgba(67, 60, 126, 0.12);
+            border-radius: 4px;
+            background: #f2e9e6;
+        }
+
+        .photo-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: transform 350ms cubic-bezier(0.2, 0.7, 0.2, 1), filter 250ms ease;
+        }
+
+        .gallery-item:hover .photo-frame img {
+            transform: scale(1.035);
+            filter: saturate(1.04);
+        }
+
+        .photo-open {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            display: grid;
+            width: 34px;
+            height: 34px;
+            place-items: center;
+            border-radius: 50%;
+            background: rgba(255, 250, 247, 0.94);
+            color: var(--gallery-ink);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 160ms ease, transform 160ms ease;
+        }
+
+        .gallery-item:hover .photo-open,
+        .gallery-item:focus-visible .photo-open {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .photo-caption {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 9px 1px 0;
+            font-size: 0.87rem;
+            font-weight: 600;
+        }
+
+        .photo-caption small {
+            flex: 0 0 auto;
+            color: var(--gallery-green);
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .photo-lightbox {
+            position: fixed;
+            inset: 50% auto auto 50%;
+            margin: 0;
+            transform: translate(-50%, -50%);
+            width: min(94vw, 1120px);
+            max-width: none;
+            max-height: 92vh;
+            padding: 48px 68px 20px;
+            overflow: visible;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 6px;
+            background: var(--gallery-paper);
+            color: var(--gallery-ink);
+        }
+
+        .photo-lightbox::backdrop {
+            background: rgba(25, 24, 32, 0.84);
+            backdrop-filter: blur(3px);
+        }
+
+        .photo-lightbox figure {
+            display: grid;
+            justify-items: center;
+            gap: 12px;
+            margin: 0;
+        }
+
+        .photo-lightbox figure img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: calc(92vh - 110px);
+            object-fit: contain;
+        }
+
+        .photo-lightbox figcaption {
+            display: flex;
+            width: 100%;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.08rem;
+        }
+
+        .photo-lightbox figcaption small {
+            color: var(--gallery-green);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 0.8rem;
+        }
+
+        .lightbox-close,
+        .lightbox-arrow {
+            position: absolute;
+            display: grid;
+            width: 42px;
+            height: 42px;
+            place-items: center;
+            border: 1px solid rgba(67, 60, 126, 0.16);
+            border-radius: 50%;
+            background: white;
+            color: var(--gallery-ink);
+            cursor: pointer;
+        }
+
+        .lightbox-close {
+            top: 12px;
+            right: 12px;
+        }
+
+        .lightbox-arrow {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .lightbox-previous {
+            left: 12px;
+        }
+
+        .lightbox-next {
+            right: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .gallery-grid {
+                columns: 3;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .gallery-page {
+                padding: 30px 16px 56px;
+            }
+
+            .gallery-heading {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                padding-top: 14px;
+            }
+
+            .gallery-heading h1 {
+                font-size: 2.55rem;
+            }
+
+            .gallery-intro {
+                max-width: 430px;
+            }
+
+            .gallery-grid {
+                columns: 2;
+                column-gap: 12px;
+            }
+
+            .gallery-item {
+                margin-bottom: 15px;
+            }
+
+            .photo-caption {
+                display: block;
+                font-size: 0.82rem;
+            }
+
+            .photo-caption small {
+                display: block;
+                padding-top: 2px;
+            }
+
+            .photo-lightbox {
+                width: 96vw;
+                padding: 48px 42px 16px;
+            }
+
+            .lightbox-close,
+            .lightbox-arrow {
+                width: 36px;
+                height: 36px;
+            }
+
+            .lightbox-previous {
+                left: 4px;
+            }
+
+            .lightbox-next {
+                right: 4px;
+            }
+
+            .photo-lightbox figcaption {
+                display: block;
+                text-align: center;
+            }
+
+            .photo-lightbox figcaption small {
+                display: block;
+                padding-top: 4px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .gallery-filter,
+            .photo-frame img,
+            .photo-open {
+                transition: none;
+            }
+        }
+    </style>
+</Layout>

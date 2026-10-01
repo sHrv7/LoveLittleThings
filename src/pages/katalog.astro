@@ -62,6 +62,10 @@ const categories = [
                 <input type="email" id="customerEmailInput" class="form-control" autocomplete="email" required placeholder="Unesite svoju e-adresu" style="border: 1px solid var(--llt-accent-mid);">
             </div>
             <textarea id="orderSummary" class="form-control" rows="8" readonly style="border: 1px solid var(--llt-accent-mid); background: #faf4fb; min-height: 220px;"></textarea>
+            <div class="mb-3 mt-3">
+                <label for="orderNoteInput" class="form-label" style="color: var(--llt-accent-dark);">Napomena (nije obavezno)</label>
+                <textarea id="orderNoteInput" class="form-control" rows="3" placeholder="Upišite dodatnu napomenu" style="border: 1px solid var(--llt-accent-mid);"></textarea>
+            </div>
             <div class="delivery-selection mt-4">
                 <h3 class="h5" style="color: var(--llt-accent-dark);">Način dostave</h3>
                 <input type="hidden" id="deliveryMethodInput" name="nacin_dostave" value="Boxnow">
@@ -176,23 +180,23 @@ const categories = [
         ];
 
         const imageSelections = {
-            bojaSeta: ['Srebrna.jpeg', 'Zlatna.jpeg', 'Rose.jpeg'],
+            bojaSeta: ['Srebrna.jpeg', 'Zlatna.jpeg', 'Roza.jpeg'],
             fontoviZaKrsniSet: [
                 'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
                 'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
                 'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
             ],
             bojeVrpca: [
-                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
-                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
-                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
+                'Plava-svijetla.jpeg', 'Roza-prasasta-1.jpeg', 'Smeda-tamna.jpeg', 'Bijela.jpeg',
+                'Bijela-topla.jpeg', 'Krem.jpeg', 'Zlatna-tamna.jpeg', 'Zlatna-svijetla.jpeg',
+                'Roza-prasasta-2.jpeg', 'Rose-gold.jpeg', 'Mauve.jpeg', 'Breskvasta.jpeg',
+                'Lila-svijetla.jpeg', 'Roza-svijetla-1.jpeg', 'Ljubicasta.jpeg', 'Taupe.jpeg',
+                'Plava-kraljevska-1.jpeg', 'Roza-srednja.jpeg', 'Roza-bijela.jpeg', 'Breskvasta-svijetla.jpeg',
+                'Roza-lila.jpeg', 'Mint.jpeg', 'Zelena-maslinasta-svijetla.jpeg', 'Khaki.jpeg',
+                'Mint-svijetla.jpeg', 'Zelena-tamna.jpeg', 'Zelena-petrolej.jpeg', 'Plava-kraljevska-2.jpeg',
+                'Teget-tamna.jpeg', 'Teget-svijetla.jpeg', 'Plava-jarka.jpeg',
             ],
             krila: ['Ne.jpeg', 'Da.jpeg'],
-            maramica: [
-                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
-                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
-                'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
-            ],
             bojuPerlicaKrunice: [
                 'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
                 'TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg','TestSlika.jpeg',
@@ -213,14 +217,6 @@ const categories = [
                     document.querySelectorAll<HTMLElement>(`.option-card[data-field="${field}"], .option-image[data-field="${field}"]`).forEach(c => c.classList.remove('selected'));
                     this.classList.add('selected');
 
-                    if (field === 'krunica') {
-                        const section = getElement('krunicaSection');
-                        if (section) section.style.display = value === 'Da' ? 'block' : 'none';
-                    }
-                    if (field === 'biblija') {
-                        const section = getElement('biblijaSection');
-                        if (section) section.style.display = value !== 'Ne' ? 'block' : 'none';
-                    }
                     if (field === 'par') {
                         const bazaShow = value !== 'Samo nadopuna';
                         const nadopunaShow = value !== 'Samo baza';
@@ -246,10 +242,23 @@ const categories = [
                     if (field === 'krunica') {
                         const section = getElement('krunicaSection');
                         if (section) section.style.display = value === 'Da' ? 'block' : 'none';
+                        if (value === 'Ne') {
+                            const beadColorInput = getElement<HTMLInputElement>('boja_perlicaInput');
+                            if (beadColorInput) beadColorInput.value = '';
+                        }
                     }
                     if (field === 'biblija') {
                         const section = getElement('biblijaSection');
                         if (section) section.style.display = value !== 'Ne' ? 'block' : 'none';
+                        const bibleNameSelect = getElement<HTMLSelectElement>('biblijaSaImenomSelect');
+                        if (bibleNameSelect) {
+                            bibleNameSelect.required = value !== 'Ne';
+                            if (value === 'Ne') bibleNameSelect.value = '';
+                        }
+                        if (value === 'Ne') {
+                            const bibleNameInput = getElement<HTMLInputElement>('biblija_sa_imenomInput');
+                            if (bibleNameInput) bibleNameInput.value = '';
+                        }
                     }
                 });
             });
@@ -317,31 +326,43 @@ const categories = [
                 <form id="krsniSetForm">
                     <div class="mb-3">
                         <label class="form-label" style="color: var(--llt-accent-dark);">Boja krsnog seta:</label>
-                        <input type="hidden" name="boja_seta" id="boja_setaInput">
+                        <input type="hidden" name="boja_seta" id="boja_setaInput" data-required-image="Boja krsnog seta">
                         <div class="selection-grid mt-2">
-                            ${imageSelections.bojaSeta.map(img => `<img src="../images/bojaNadopuna/${img}" data-field="boja_seta" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                            ${imageSelections.bojaSeta.map(img => `<img src="../images/BojaSeta/${img}" data-field="boja_seta" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" style="color: var(--llt-accent-dark);">Vanjski dio kutije:</label>
+                        <label class="form-label" style="color: var(--llt-accent-dark);">Poruka na vanjskom dijelu kutije(ime):</label>
                         <input type="text" name="vanjski_dio_kutije" class="form-control" required style="border: 1px solid var(--llt-accent-mid);">
                     </div>
 
                     <div class="border-top border-bottom py-3 my-3">
                         <h5 style="color: var(--llt-accent-mid);">Svijeća</h5>
                         <div class="mb-3">
+                            <label for="bojaSvijeceSelect" class="form-label" style="color: var(--llt-accent-dark);">Boja svijeće:</label>
+                            <input type="hidden" name="boja_svijece" id="boja_svijeceInput">
+                            <select id="bojaSvijeceSelect" class="form-control" data-field="boja_svijece" required style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
+                                <option value="" disabled selected>-- Odaberi --</option>
+                                <option value="Bijela">Bijela</option>
+                                <option value="Srebrna">Srebrna</option>
+                                <option value="Zlatna">Zlatna</option>
+                                <option value="Roza">Roza</option>
+                                <option value="Plava">Plava</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label" style="color: var(--llt-accent-dark);">Boja vrpce:</label>
-                            <input type="hidden" name="boja_vrpce" id="boja_vrpceInput">
+                            <input type="hidden" name="boja_vrpce" id="boja_vrpceInput" data-required-image="Boja vrpce">
                             <div class="selection-grid mt-2">
-                                ${imageSelections.bojeVrpca.map(img => `<img src="../images/bojeVrpca/${img}" data-field="boja_vrpce" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                                ${imageSelections.bojeVrpca.map(img => `<img src="../images/BojaVrpce/${img}" data-field="boja_vrpce" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" style="color: var(--llt-accent-dark);">Krila na svijeći:</label>
-                            <input type="hidden" name="krila" id="krilaInput">
+                            <input type="hidden" name="krila" id="krilaInput" data-required-image="Krila na svijeći">
                             <div class="selection-grid mt-2">
-                                ${imageSelections.krila.map(img => `<img src="../images/krila/${img}" data-field="krila" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
+                                ${imageSelections.krila.map(img => `<img src="../images/KrilaNaSvijeci/${img}" data-field="krila" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                             </div>
                         </div>
                     </div>
@@ -349,23 +370,23 @@ const categories = [
                     <div class="border-bottom py-3 my-3">
                         <h5 style="color: var(--llt-accent-mid);">Unutrašnjost kutije</h5>
                         <div class="mb-3">
-                            <label class="form-label" style="color: var(--llt-accent-dark);">Poruka sredina kutije (max 120 znakova):</label>
-                            <textarea name="poruka_sredina" class="form-control" maxlength="120" rows="2" style="border: 1px solid var(--llt-accent-mid);"></textarea>
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Poruka na sredini kutije (max 300 znakova):</label>
+                            <textarea name="poruka_sredina" class="form-control" maxlength="300" rows="2" required style="border: 1px solid var(--llt-accent-mid);"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" style="color: var(--llt-accent-dark);">Font sredina:</label>
-                            <input type="hidden" name="font_sredina" id="font_sredinaInput">
+                            <input type="hidden" name="font_sredina" id="font_sredinaInput" data-required-image="Font sredina">
                             <div class="selection-grid mt-2">
                                 ${imageSelections.fontoviZaKrsniSet.map(img => `<img src="../images/fontoviZaKrsniSet/${img}" data-field="font_sredina" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" style="color: var(--llt-accent-dark);">Posveta (max 120 znakova):</label>
-                            <textarea name="posveta" class="form-control" maxlength="120" rows="2" style="border: 1px solid var(--llt-accent-mid);"></textarea>
+                            <label class="form-label" style="color: var(--llt-accent-dark);">Posveta (max 300 znakova):</label>
+                            <textarea name="posveta" class="form-control" maxlength="300" rows="2" required style="border: 1px solid var(--llt-accent-mid);"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" style="color: var(--llt-accent-dark);">Font dolje:</label>
-                            <input type="hidden" name="font_dolje" id="font_doljeInput">
+                            <input type="hidden" name="font_dolje" id="font_doljeInput" data-required-image="Font dolje">
                             <div class="selection-grid mt-2">
                                 ${imageSelections.fontoviZaKrsniSet.map(img => `<img src="../images/fontoviZaKrsniSet/${img}" data-field="font_dolje" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                             </div>
@@ -406,7 +427,7 @@ const categories = [
                         </select>
                         <div id="krunicaSection" style="display: none; margin-top: 16px;">
                             <label class="form-label" style="color: var(--llt-accent-dark);">Boja perlica:</label>
-                            <input type="hidden" name="boja_perlica" id="boja_perlicaInput">
+                            <input type="hidden" name="boja_perlica" id="boja_perlicaInput" data-required-image="Boja perlica">
                             <div class="selection-grid mt-2">
                                 ${imageSelections.bojuPerlicaKrunice.map(img => `<img src="../images/bojuPerlicaKrunice/${img}" data-field="boja_perlica" data-value="${img.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '')}" class="option-image" alt="${img}">`).join('')}
                             </div>
@@ -425,10 +446,11 @@ const categories = [
                         <div id="biblijaSection" style="display: none; margin-top: 16px;">
                             <label class="form-label" style="color: var(--llt-accent-dark);">Prilagodba biblije:</label>
                             <input type="hidden" name="biblija_sa_imenom" id="biblija_sa_imenomInput">
-                            <div class="selection-grid mt-2">
-                                <button type="button" class="option-card" data-field="biblija_sa_imenom" data-value="Da">Ime na bibliji</button>
-                                <button type="button" class="option-card" data-field="biblija_sa_imenom" data-value="Ne">Bez imena</button>
-                            </div>
+                            <select id="biblijaSaImenomSelect" class="form-control mt-2" data-field="biblija_sa_imenom" style="border: 1px solid var(--llt-accent-mid); color: var(--llt-accent-dark);">
+                                <option value="" disabled selected>-- Odaberi --</option>
+                                <option value="Da">Ime na bibliji</option>
+                                <option value="Ne">Bez imena</option>
+                            </select>
                         </div>
                     </div>
 
@@ -515,10 +537,26 @@ const categories = [
             `;
         }
 
+        function validateRequiredImageSelections(form: HTMLFormElement): boolean {
+            const missingInput = Array.from(form.querySelectorAll<HTMLInputElement>('[data-required-image]')).find(input => {
+                const conditionalSection = input.closest<HTMLElement>('#krunicaSection');
+                return !input.value && conditionalSection?.style.display !== 'none';
+            });
+            if (!missingInput) return true;
+
+            form.querySelector<HTMLElement>(`.option-image[data-field="${missingInput.name}"]`)?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+            alert(`Odaberite sliku za polje: ${missingInput.dataset.requiredImage}.`);
+            return false;
+        }
+
         function submitKrsniSet(event: SubmitEvent) {
             event.preventDefault();
             const form = event.currentTarget;
             if (!(form instanceof HTMLFormElement)) return;
+            if (!validateRequiredImageSelections(form)) return;
             const formData = new FormData(form);
             const data = Object.fromEntries(formData);
             cart.push({product: 'Krsni Set', ...data});
